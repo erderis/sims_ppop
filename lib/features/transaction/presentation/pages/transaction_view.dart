@@ -4,7 +4,8 @@ import 'package:simsppob/constants/app_colors.dart';
 import 'package:simsppob/constants/app_padding.dart';
 import 'package:simsppob/constants/app_text_style.dart';
 import 'package:simsppob/core/widgets/app_header.dart';
-import 'package:simsppob/core/widgets/saldo_item.dart';
+import 'package:simsppob/core/widgets/app_saldo_item.dart';
+import 'package:simsppob/utils/helper/format_datetime.dart';
 
 class TransactionView extends StatelessWidget {
   const TransactionView({super.key});
@@ -26,7 +27,7 @@ class TransactionView extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: AppPadding.horizontalPaddingXL),
-            child: const SaldoItemView(
+            child: const AppSaldoItemView(
               amount: 'Rp 10.000',
             ),
           ),
@@ -88,7 +89,7 @@ class TransactionView extends StatelessWidget {
                                     height: AppPadding.verticalPaddingS,
                                   ),
                                   Text(
-                                    '17 Agustus 2023  12:10 WIB',
+                                    formatDateTime('2023-08-17T13:10:10.000Z'),
                                     style: AppTextStyles.subDescriptionTextStyle
                                         .copyWith(
                                             color: AppColors.hintTextColor),

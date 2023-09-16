@@ -22,17 +22,18 @@ class _LoginFormViewState extends State<LoginFormView> {
   final TextEditingController _passwordController = TextEditingController();
 
   void onLogin(BuildContext context, LoginProvider provider) {
-    if (formKey.currentState?.validate() == true) {
-      provider
-          .login(LoginModel(
-              email: _emailController.text, password: _passwordController.text))
-          .then((value) {
-        if (provider.dataState.isSuccess) {
-          Navigator.pushNamedAndRemoveUntil(
-              context, Routes.main, (routes) => false);
-        }
-      });
-    }
+    // if (formKey.currentState?.validate() == true) {
+    //   provider
+    //       .login(LoginModel(
+    //           email: _emailController.text, password: _passwordController.text))
+    //       .then((value) {
+    //     if (provider.dataState.isSuccess) {
+    //       Navigator.pushNamedAndRemoveUntil(
+    //           context, Routes.main, (routes) => false);
+    //     }
+    //   });
+    // }
+    Navigator.pushNamedAndRemoveUntil(context, Routes.main, (routes) => false);
   }
 
   @override
@@ -44,6 +45,7 @@ class _LoginFormViewState extends State<LoginFormView> {
 
   @override
   Widget build(BuildContext context) {
+    print('reloaded');
     return Form(
       key: formKey,
       child: Padding(

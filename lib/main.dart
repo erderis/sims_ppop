@@ -2,12 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:simsppob/config/app_pages.dart';
 import 'package:simsppob/config/app_routes.dart';
 import 'package:simsppob/constants/app_colors.dart';
-import 'package:simsppob/features/main/presentation/cubit/navbar_cubit.dart';
+import 'package:simsppob/features/home/presentation/provider/saldo_visibility_provider.dart';
+import 'package:simsppob/features/main/presentation/provider/navbar_provider.dart';
 import 'package:simsppob/utils/injection/injection_container.dart' as di;
 
 import 'utils/injection/injection_container.dart';
@@ -33,11 +34,14 @@ class SIMSPPOB extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context, designSize: const Size(390, 844));
-    return MultiBlocProvider(
+    return MultiProvider(
       providers: [
-        BlocProvider(
-          create: (_) => sl<NavbarCubit>(),
+        ChangeNotifierProvider(
+          create: (_) => sl<NavbarProvider>(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => SaldoVisibilityProvider(),
+        )
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -47,7 +51,7 @@ class SIMSPPOB extends StatelessWidget {
             primaryColor: AppColors.accentColor,
             visualDensity: VisualDensity.adaptivePlatformDensity,
             scaffoldBackgroundColor: AppColors.backgroundColor),
-        initialRoute: Routes.main,
+        initialRoute: Routes.splash,
         onGenerateRoute: AppRouter().generateRoute,
       ),
     );

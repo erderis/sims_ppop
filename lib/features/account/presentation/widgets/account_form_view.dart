@@ -107,6 +107,9 @@ class AccountFormView extends StatelessWidget {
               if (isEdit) {
               } else {}
             }),
+        SizedBox(
+          height: AppPadding.verticalPaddingM * 2,
+        ),
       ],
     );
   }

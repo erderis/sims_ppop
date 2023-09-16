@@ -7,7 +7,7 @@ import 'package:simsppob/features/register/presentation/cubit/register_password_
 import 'package:simsppob/utils/injection/injection_container.dart';
 
 Future<void> initRegister() async {
-  //bloc
+  //provider
   // sl.registerFactory(() => RegisterBloc());
   sl.registerFactory(() => RegisterPasswordVisibilityCubit());
   sl.registerFactory(() => RegisterPasswordConfirmVisibilityCubit());

@@ -4,14 +4,14 @@ import 'package:simsppob/features/login/data/models/login_model.dart';
 import 'package:simsppob/features/login/domain/usecases/login_usacase.dart';
 import 'package:simsppob/utils/helper/map_failure_to_message.dart';
 
-class LoginProvider<T> extends ChangeNotifier {
+class LoginProvider extends ChangeNotifier {
   final LoginUseCase loginUseCase;
 
-  DataState<T> _dataState = DataState<T>();
+  DataState _dataState = DataState();
 
   LoginProvider(this.loginUseCase);
 
-  DataState<T> get dataState => _dataState;
+  DataState get dataState => _dataState;
 
   Future<void> login(LoginModel loginModel) async {
     _dataState = DataState(isLoading: true);

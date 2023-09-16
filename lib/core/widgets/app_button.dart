@@ -40,7 +40,7 @@ class AppButton extends StatelessWidget {
                 color: isSecondary ? buttonColor : Colors.transparent)),
         child: isLoading
             ? const SpinKitThreeBounce(
-                size: 25,
+                size: 20,
                 color: AppColors.backgroundColor,
               )
             : Text(

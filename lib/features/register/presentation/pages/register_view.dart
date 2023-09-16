@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:simsppob/config/app_routes.dart';
@@ -32,27 +31,22 @@ class RegisterView extends StatelessWidget {
         body: SafeArea(
           child: ListView(
             children: [
-              KeyboardVisibilityBuilder(builder: (context, isKeyboardVisible) {
-                return Visibility(
-                  visible: !isKeyboardVisible,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(
-                        AppAssets.appLogo,
-                        width: 32.w,
-                      ),
-                      SizedBox(
-                        width: AppPadding.horizontalPaddingS,
-                      ),
-                      Text(
-                        'SIMS PPOB',
-                        style: AppTextStyles.titleTextStyle,
-                      ),
-                    ],
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(
+                    AppAssets.appLogo,
+                    width: 32.w,
                   ),
-                );
-              }),
+                  SizedBox(
+                    width: AppPadding.horizontalPaddingS,
+                  ),
+                  Text(
+                    'SIMS PPOB',
+                    style: AppTextStyles.titleTextStyle,
+                  ),
+                ],
+              ),
               SizedBox(
                 height: AppPadding.verticalPaddingM * 2,
               ),

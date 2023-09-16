@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:simsppob/constants/app_assets.dart';
@@ -10,6 +11,7 @@ class AppTextField extends StatelessWidget {
   final TextEditingController controller;
   final TextInputAction? textInputAction;
   final TextCapitalization textCapitalization;
+  final List<TextInputFormatter>? inputFormatters;
   final IconData prefixIcon;
   final TextInputType? textInputType;
   final Function()? togglePasswordVisibility;
@@ -36,6 +38,7 @@ class AppTextField extends StatelessWidget {
     this.textInputType,
     this.readOnly = false,
     required this.prefixIcon,
+    this.inputFormatters,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -55,6 +58,7 @@ class AppTextField extends StatelessWidget {
         maxLines: isPassword ? 1 : maxLines,
         textInputAction: textInputAction,
         readOnly: readOnly,
+        inputFormatters: inputFormatters,
         decoration: InputDecoration(
           hintText: hintText,
           filled: true,

@@ -23,7 +23,7 @@ class AccountView extends StatelessWidget {
         child: ListView(
           padding: EdgeInsets.symmetric(
               horizontal: AppPadding.horizontalPaddingXL,
-              vertical: AppPadding.verticalPaddingM * 2),
+              vertical: AppPadding.verticalPaddingS),
           children: [
             Column(
               children: [
@@ -67,7 +67,7 @@ class AccountView extends StatelessWidget {
                   ],
                 ),
                 SizedBox(
-                  height: AppPadding.verticalPaddingM * 2,
+                  height: AppPadding.verticalPaddingM,
                 ),
                 Text(
                   'Kristanto Wibowo',
