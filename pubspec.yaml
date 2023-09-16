@@ -1,0 +1,48 @@
+name: simsppob
+description: A new Flutter project.
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.6 <4.0.0'
+
+dependencies:
+  cupertino_icons: ^1.0.2
+  dartz: ^0.10.1
+  equatable: ^2.0.5
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^8.1.3
+  flutter_keyboard_visibility: ^5.4.1
+  flutter_screenutil: ^5.9.0
+  flutter_svg: ^2.0.7
+  get_it: ^7.6.4
+  http: ^1.1.0
+  internet_connection_checker_plus: ^2.0.0
+  provider: ^6.0.5
+  shared_preferences: ^2.2.1
+
+dev_dependencies:
+  flutter_lints: ^2.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/app-logo.png"
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/vectors/
+    - assets/images/
+
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter-Regular.ttf
+        - asset: assets/fonts/Inter-Medium.ttf
+        - asset: assets/fonts/Inter-SemiBold.ttf
+        - asset: assets/fonts/Inter-Bold.ttf
