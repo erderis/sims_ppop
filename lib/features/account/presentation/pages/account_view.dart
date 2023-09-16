@@ -44,7 +44,9 @@ class AccountView extends StatelessWidget {
                       bottom: 0,
                       right: 0,
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          //only accept jpeg dan png
+                        },
                         child: Container(
                           width: 30.w,
                           height: 30.w,

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:simsppob/config/app_routes.dart';
 import 'package:simsppob/constants/app_padding.dart';
 import 'package:simsppob/core/widgets/app_button.dart';
 import 'package:simsppob/core/widgets/app_text_field.dart';
-import 'package:simsppob/features/login/presentation/cubit/login_password_visibility_cubit.dart';
+import 'package:simsppob/features/login/data/models/login_model.dart';
+import 'package:simsppob/features/login/presentation/provider/login_password_visibility_provider.dart';
+import 'package:simsppob/features/login/presentation/provider/login_provider.dart';
 import 'package:simsppob/utils/helper/email_validator.dart';
 
 class LoginFormView extends StatefulWidget {
@@ -20,12 +21,17 @@ class _LoginFormViewState extends State<LoginFormView> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  void onLogin(BuildContext context) {
+  void onLogin(BuildContext context, LoginProvider provider) {
     if (formKey.currentState?.validate() == true) {
-      // Implement your login logic here
-      // Access emailController.text and passwordController.text to get the entered email and password
-      Navigator.pushNamedAndRemoveUntil(
-          context, Routes.main, (routes) => false);
+      provider
+          .login(LoginModel(
+              email: _emailController.text, password: _passwordController.text))
+          .then((value) {
+        if (provider.dataState.isSuccess) {
+          Navigator.pushNamedAndRemoveUntil(
+              context, Routes.main, (routes) => false);
+        }
+      });
     }
   }
 
@@ -61,13 +67,13 @@ class _LoginFormViewState extends State<LoginFormView> {
               prefixIcon: Icons.alternate_email,
             ),
             SizedBox(height: AppPadding.verticalPaddingM * 2),
-            BlocBuilder<LoginPasswordVisibilityCubit, bool>(
-              builder: (context, isPasswordVisible) {
+            Consumer<LoginPasswordVisibilityProvider>(
+              builder: (context, provider, _) {
                 return AppTextField(
                   controller: _passwordController,
                   hintText: 'masukkan password anda',
                   isPassword: true,
-                  isPasswordVisible: isPasswordVisible,
+                  isPasswordVisible: provider.visibility,
                   textInputAction: TextInputAction.done,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -77,8 +83,8 @@ class _LoginFormViewState extends State<LoginFormView> {
                   },
                   togglePasswordVisibility: () {
                     context
-                        .read<LoginPasswordVisibilityCubit>()
-                        .setVisibility(!isPasswordVisible);
+                        .read<LoginPasswordVisibilityProvider>()
+                        .setVisibility(!provider.visibility);
                   },
                   prefixIcon: Icons.lock_outline,
                 );
@@ -87,10 +93,13 @@ class _LoginFormViewState extends State<LoginFormView> {
             SizedBox(
               height: AppPadding.verticalPaddingL * 3,
             ),
-            AppButton(
-              text: 'Masuk',
-              onPressed: () => onLogin(context),
-            ),
+            Consumer<LoginProvider>(builder: (context, provider, child) {
+              return AppButton(
+                text: 'Masuk',
+                isLoading: provider.dataState.isLoading,
+                onPressed: () => onLogin(context, provider),
+              );
+            }),
           ],
         ),
       ),

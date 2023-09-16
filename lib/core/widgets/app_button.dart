@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'package:simsppob/constants/app_colors.dart';
 import 'package:simsppob/constants/app_padding.dart';
@@ -11,8 +12,7 @@ class AppButton extends StatelessWidget {
   final Color buttonColor;
   final Color textColor;
   final bool isSecondary;
-  final TextStyle? textStyle;
-  final double? radius;
+  final bool isLoading;
 
   const AppButton({
     super.key,
@@ -21,8 +21,7 @@ class AppButton extends StatelessWidget {
     this.buttonColor = AppColors.buttonColor,
     this.textColor = AppColors.buttonTextColor,
     this.isSecondary = false,
-    this.textStyle,
-    this.radius,
+    this.isLoading = false,
   });
 
   @override
@@ -30,7 +29,7 @@ class AppButton extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: onPressed,
+        onPressed: isLoading ? () {} : onPressed,
         style: ElevatedButton.styleFrom(
             elevation: 0,
             padding: EdgeInsets.all(16.w),
@@ -39,12 +38,16 @@ class AppButton extends StatelessWidget {
                 borderRadius: BorderRadius.circular(AppPadding.radius)),
             side: BorderSide(
                 color: isSecondary ? buttonColor : Colors.transparent)),
-        child: Text(
-          text,
-          style: textStyle ??
-              AppTextStyles.buttonTextStyle
-                  .copyWith(color: isSecondary ? buttonColor : textColor),
-        ),
+        child: isLoading
+            ? const SpinKitThreeBounce(
+                size: 25,
+                color: AppColors.backgroundColor,
+              )
+            : Text(
+                text,
+                style: AppTextStyles.buttonTextStyle
+                    .copyWith(color: isSecondary ? buttonColor : textColor),
+              ),
       ),
     );
   }

@@ -4,12 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'package:simsppob/config/app_routes.dart';
 import 'package:simsppob/constants/app_assets.dart';
 import 'package:simsppob/constants/app_colors.dart';
 import 'package:simsppob/constants/app_padding.dart';
 import 'package:simsppob/constants/app_text_style.dart';
-import 'package:simsppob/features/login/presentation/cubit/login_password_visibility_cubit.dart';
+import 'package:simsppob/features/login/presentation/provider/login_password_visibility_provider.dart';
 import 'package:simsppob/features/login/presentation/widgets/login_form_view.dart';
 import 'package:simsppob/utils/injection/injection_container.dart';
 
@@ -20,8 +21,8 @@ class LoginView extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (context) => sl<LoginPasswordVisibilityCubit>(),
+        ChangeNotifierProvider(
+          create: (context) => sl<LoginPasswordVisibilityProvider>(),
         ),
       ],
       child: Scaffold(

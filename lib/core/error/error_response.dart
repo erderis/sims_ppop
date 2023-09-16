@@ -1,19 +1,14 @@
-class ErrorResponse {
-  final String message;
-  final Map<String, dynamic>? errors;
-  final String? error;
+import 'package:simsppob/core/response/response_model.dart';
 
-  ErrorResponse({
-    required this.message,
-    this.errors,
-    this.error,
-  });
+class ErrorResponse extends ResponseEntity {
+  const ErrorResponse(
+      {required super.status, required super.message, required super.data});
 
   factory ErrorResponse.fromJson(Map<String, dynamic> json) {
     return ErrorResponse(
+      status: json['status'],
       message: json['message'],
-      errors: json['errors'],
-      error: json['error'],
+      data: json['data'],
     );
   }
 }

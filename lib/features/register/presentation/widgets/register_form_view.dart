@@ -105,6 +105,8 @@ class _LoginFormViewState extends State<RegisterFormView> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'password tidak boleh kosong';
+                    } else if (_passwordConfirmController.text.length < 8) {
+                      return 'password tidak boleh kurang dari 8 karakter';
                     }
                     return null;
                   },
@@ -129,7 +131,7 @@ class _LoginFormViewState extends State<RegisterFormView> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'password tidak boleh kosong';
-                    } else if (_passwordConfirmController.text !=
+                    } else if (_passwordController.text !=
                         _passwordConfirmController.text) {
                       return 'password tidak sama';
                     }
