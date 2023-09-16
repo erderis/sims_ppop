@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:simsppob/constants/app_assets.dart';
 import 'package:simsppob/constants/app_colors.dart';
 import 'package:simsppob/constants/app_padding.dart';
 import 'package:simsppob/constants/app_text_style.dart';
 import 'package:simsppob/core/widgets/app_header.dart';
 import 'package:simsppob/features/account/presentation/widgets/account_form_view.dart';
+import 'package:simsppob/features/main/presentation/provider/navbar_provider.dart';
 
 class AccountView extends StatelessWidget {
   const AccountView({super.key});
@@ -16,7 +18,11 @@ class AccountView extends StatelessWidget {
       appBar: PreferredSize(
           preferredSize: const Size(double.infinity, 56),
           child: AppHeader(
-            onBack: () {},
+            onBack: () {
+              final navbarProvider =
+                  Provider.of<NavbarProvider>(context, listen: false);
+              navbarProvider.changeNavbar(0);
+            },
             title: 'Akun',
           )),
       body: SafeArea(

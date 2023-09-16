@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:simsppob/constants/app_colors.dart';
 import 'package:simsppob/constants/app_padding.dart';
 import 'package:simsppob/constants/app_text_style.dart';
 import 'package:simsppob/core/widgets/app_header.dart';
 import 'package:simsppob/core/widgets/app_saldo_item.dart';
+import 'package:simsppob/features/main/presentation/provider/navbar_provider.dart';
 import 'package:simsppob/utils/helper/format_datetime.dart';
 
 class TransactionView extends StatelessWidget {
@@ -16,7 +18,11 @@ class TransactionView extends StatelessWidget {
       appBar: PreferredSize(
           preferredSize: const Size(double.infinity, 56),
           child: AppHeader(
-            onBack: () {},
+            onBack: () {
+              final navbarProvider =
+                  Provider.of<NavbarProvider>(context, listen: false);
+              navbarProvider.changeNavbar(0);
+            },
             title: 'Transaksi',
           )),
       body: Column(
@@ -32,7 +38,7 @@ class TransactionView extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: AppPadding.verticalPaddingL * 3,
+            height: AppPadding.verticalPaddingL * 2,
           ),
           Expanded(
             child: Column(
@@ -56,7 +62,7 @@ class TransactionView extends StatelessWidget {
                       horizontal: AppPadding.horizontalPaddingXL),
                   children: [
                     ...List.generate(
-                        3,
+                        4,
                         (index) => Container(
                               padding: EdgeInsets.symmetric(
                                   vertical: AppPadding.verticalPaddingS,
@@ -97,14 +103,20 @@ class TransactionView extends StatelessWidget {
                                 ],
                               ),
                             )),
-                    TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        'Show More',
-                        style: AppTextStyles.descriptionTextStyle
-                            .copyWith(color: AppColors.accentColor),
+                    Align(
+                      alignment: Alignment.center,
+                      child: InkWell(
+                        onTap: () {},
+                        child: Text(
+                          'Show More',
+                          style: AppTextStyles.descriptionTextStyle
+                              .copyWith(color: AppColors.accentColor),
+                        ),
                       ),
                     ),
+                    SizedBox(
+                      height: AppPadding.verticalPaddingM * 2,
+                    )
                   ],
                 ))
               ],

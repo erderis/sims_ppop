@@ -1,6 +1,7 @@
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:simsppob/constants/app_colors.dart';
 import 'package:simsppob/constants/app_padding.dart';
 import 'package:simsppob/constants/app_text_style.dart';
@@ -10,6 +11,7 @@ import 'package:simsppob/core/widgets/app_dialog_notif.dart';
 import 'package:simsppob/core/widgets/app_header.dart';
 import 'package:simsppob/core/widgets/app_text_field.dart';
 import 'package:simsppob/core/widgets/app_saldo_item.dart';
+import 'package:simsppob/features/main/presentation/provider/navbar_provider.dart';
 import 'package:simsppob/utils/helper/format_currency.dart';
 
 class TopUpView extends StatefulWidget {
@@ -63,7 +65,11 @@ class _TopUpViewState extends State<TopUpView> {
       appBar: PreferredSize(
           preferredSize: const Size(double.infinity, 56),
           child: AppHeader(
-            onBack: () {},
+            onBack: () {
+              final navbarProvider =
+                  Provider.of<NavbarProvider>(context, listen: false);
+              navbarProvider.changeNavbar(0);
+            },
             title: 'Top Up',
           )),
       body: InkWell(

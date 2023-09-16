@@ -61,33 +61,35 @@ class AppSaldoItemView extends StatelessWidget {
               }),
               Visibility(
                 visible: isHome,
-                child: Row(
-                  children: [
-                    Text(
-                      'Lihat Saldo',
-                      style: AppTextStyles.descriptionTextStyle.copyWith(
-                        color: AppColors.textColorLight,
-                      ),
-                    ),
-                    SizedBox(
-                      width: AppPadding.horizontalPaddingS,
-                    ),
-                    Consumer<SaldoVisibilityProvider>(
-                        builder: (context, saldoProvider, _) {
-                      return InkWell(
-                        onTap: () => saldoProvider
-                            .toggleVisibility(), //set to asset to AppAssets.eye
-                        child: SvgPicture.asset(
-                          saldoProvider.isVisible
-                              ? AppAssets.eyeOff
-                              : AppAssets.eye,
-                          colorFilter: const ColorFilter.mode(
-                              Colors.white, BlendMode.srcIn),
+                child: Consumer<SaldoVisibilityProvider>(
+                    builder: (context, saldoProvider, _) {
+                  return InkWell(
+                    onTap: () => saldoProvider.toggleVisibility(),
+                    child: Row(
+                      children: [
+                        Text(
+                          'Lihat Saldo',
+                          style: AppTextStyles.descriptionTextStyle.copyWith(
+                            color: AppColors.textColorLight,
+                          ),
                         ),
-                      );
-                    })
-                  ],
-                ),
+                        SizedBox(
+                          width: AppPadding.horizontalPaddingS,
+                        ),
+                        InkWell(
+                          onTap: () => saldoProvider.toggleVisibility(),
+                          child: SvgPicture.asset(
+                            saldoProvider.isVisible
+                                ? AppAssets.eyeOff
+                                : AppAssets.eye,
+                            colorFilter: const ColorFilter.mode(
+                                Colors.white, BlendMode.srcIn),
+                          ),
+                        )
+                      ],
+                    ),
+                  );
+                }),
               )
             ],
           ),

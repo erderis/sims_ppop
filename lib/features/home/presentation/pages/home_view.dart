@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'package:simsppob/config/app_routes.dart';
 import 'package:simsppob/constants/app_assets.dart';
 import 'package:simsppob/constants/app_colors.dart';
 import 'package:simsppob/constants/app_padding.dart';
 import 'package:simsppob/constants/app_text_style.dart';
 import 'package:simsppob/core/widgets/app_saldo_item.dart';
+import 'package:simsppob/features/main/presentation/provider/navbar_provider.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -206,16 +208,23 @@ class HomeHeaderView extends StatelessWidget {
                 ),
               ],
             ),
-            Container(
-              width: 30.w,
-              height: 30.w,
-              decoration: BoxDecoration(
-                  color: AppColors.backgroundColor,
-                  border: Border.all(color: AppColors.borderColor),
-                  shape: BoxShape.circle),
-              child: Image.asset(
-                AppAssets.profilePicture,
-                fit: BoxFit.cover,
+            InkWell(
+              onTap: () {
+                final navbarProvider =
+                    Provider.of<NavbarProvider>(context, listen: false);
+                navbarProvider.changeNavbar(3);
+              },
+              child: Container(
+                width: 30.w,
+                height: 30.w,
+                decoration: BoxDecoration(
+                    color: AppColors.backgroundColor,
+                    border: Border.all(color: AppColors.borderColor),
+                    shape: BoxShape.circle),
+                child: Image.asset(
+                  AppAssets.profilePicture,
+                  fit: BoxFit.cover,
+                ),
               ),
             )
           ],
