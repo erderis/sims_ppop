@@ -16,7 +16,6 @@ class AppTextStyles {
 
   static final TextStyle descriptionTextStyle = TextStyle(
     fontSize: 14.sp,
-    fontWeight: FontWeight.w500,
     color: AppColors.textColor,
   );
   static final TextStyle subDescriptionTextStyle = TextStyle(

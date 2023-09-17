@@ -26,6 +26,7 @@ class AppDialogConfirm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dialog(
       backgroundColor: AppColors.backgroundColor,
+      insetPadding: EdgeInsets.all(AppPadding.horizontalPaddingXL),
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppPadding.radius * 2)),
       child: SizedBox(
@@ -43,10 +44,14 @@ class AppDialogConfirm extends StatelessWidget {
             SizedBox(
               height: AppPadding.verticalPaddingXL,
             ),
-            Text(
-              title,
-              style:
-                  AppTextStyles.descriptionTextStyle.copyWith(fontSize: 16.sp),
+            Align(
+              alignment: Alignment.center,
+              child: Text(
+                title,
+                style: AppTextStyles.descriptionTextStyle
+                    .copyWith(fontSize: 16.sp),
+                textAlign: TextAlign.center,
+              ),
             ),
             SizedBox(
               height: AppPadding.verticalPaddingS,
@@ -56,7 +61,7 @@ class AppDialogConfirm extends StatelessWidget {
               style: AppTextStyles.titleTextStyle,
             ),
             SizedBox(
-              height: AppPadding.verticalPaddingM * 2,
+              height: AppPadding.verticalPaddingL,
             ),
             TextButton(
               onPressed: onConfirm,
@@ -70,7 +75,7 @@ class AppDialogConfirm extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: AppPadding.verticalPaddingM * 2,
+              height: AppPadding.verticalPaddingM,
             ),
             TextButton(
                 onPressed: () => Navigator.pop(context),

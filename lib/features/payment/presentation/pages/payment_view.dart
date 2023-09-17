@@ -1,8 +1,6 @@
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:simsppob/constants/app_assets.dart';
 import 'package:simsppob/constants/app_colors.dart';
 import 'package:simsppob/constants/app_padding.dart';
 import 'package:simsppob/constants/app_text_style.dart';
@@ -33,7 +31,7 @@ class PaymentView extends StatelessWidget {
       builder: (context) => AppDialogNotif(
         isSuccess: isSuccess,
         title: 'Pembayaran listrik prabayar sebesar',
-        amount: 'Rp10.000',
+        value: 'Rp10.000',
       ),
     );
   }
@@ -119,8 +117,9 @@ class PaymentView extends StatelessWidget {
             ),
             AppButton(
                 text: 'Bayar',
-                onPressed: () => showDialogConfirm(
+                onPressed: () => showDialogNotif(
                       context,
+                      isSuccess: true,
                     ))
           ],
         ),

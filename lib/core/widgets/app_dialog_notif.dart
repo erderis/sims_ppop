@@ -8,18 +8,25 @@ class AppDialogNotif extends StatelessWidget {
   const AppDialogNotif({
     super.key,
     required this.isSuccess,
-    required this.title,
-    required this.amount,
+    required this.value,
+    this.title = '',
+    this.isRegister = false,
+    this.textButton,
+    this.onConfirm,
   });
 
   final bool isSuccess;
+  final bool isRegister;
   final String title;
-  final String amount;
+  final String value;
+  final String? textButton;
+  final VoidCallback? onConfirm;
 
   @override
   Widget build(BuildContext context) {
     return Dialog(
         backgroundColor: AppColors.backgroundColor,
+        insetPadding: EdgeInsets.all(AppPadding.horizontalPaddingXL),
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppPadding.radius * 2)),
         child: SizedBox(
@@ -45,16 +52,19 @@ class AppDialogNotif extends StatelessWidget {
               SizedBox(
                 height: AppPadding.verticalPaddingXL,
               ),
-              Text(
-                title,
-                style: AppTextStyles.descriptionTextStyle
-                    .copyWith(fontSize: 16.sp),
+              Visibility(
+                visible: !isRegister,
+                child: Text(
+                  title,
+                  style: AppTextStyles.descriptionTextStyle
+                      .copyWith(fontSize: 16.sp),
+                ),
               ),
               SizedBox(
                 height: AppPadding.verticalPaddingS,
               ),
               Text(
-                amount,
+                value,
                 style: AppTextStyles.titleTextStyle,
               ),
               SizedBox(
@@ -66,12 +76,12 @@ class AppDialogNotif extends StatelessWidget {
                     .copyWith(fontSize: 16.sp),
               ),
               SizedBox(
-                height: AppPadding.verticalPaddingM * 2,
+                height: AppPadding.verticalPaddingXL,
               ),
               TextButton(
-                onPressed: () => Navigator.pop(context),
+                onPressed: onConfirm ?? () => Navigator.pop(context),
                 child: Text(
-                  'Kembali ke Beranda',
+                  textButton ?? 'Kembali ke Beranda',
                   style: AppTextStyles.descriptionTextStyle.copyWith(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w600,
@@ -79,7 +89,7 @@ class AppDialogNotif extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: AppPadding.verticalPaddingM * 2,
+                height: AppPadding.verticalPaddingXL,
               ),
             ],
           ),

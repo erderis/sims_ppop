@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:simsppob/config/app_routes.dart';
 import 'package:simsppob/constants/app_padding.dart';
 import 'package:simsppob/core/widgets/app_button.dart';
+import 'package:simsppob/core/widgets/app_dialog_notif.dart';
 import 'package:simsppob/core/widgets/app_text_field.dart';
 import 'package:simsppob/features/register/presentation/provider/register_password_confirm_visibility_provider.dart';
 import 'package:simsppob/features/register/presentation/provider/register_password_visibility_provider.dart';
@@ -25,11 +27,25 @@ class _LoginFormViewState extends State<RegisterFormView> {
 
   void onRegister(BuildContext context) {
     // Navigator.pushNamedAndRemoveUntil(context, Routes.main, (routes) => false);
+    showDialogNotif(context);
 
-    if (formKey.currentState?.validate() == true) {
-      // Implement your login logic here
-      // Access emailController.text and passwordController.text to get the entered email and password
-    }
+    // if (formKey.currentState?.validate() == true) {
+    //   // Implement your login logic here
+    //   // Access emailController.text and passwordController.text to get the entered email and password
+    // }
+  }
+
+  void showDialogNotif(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AppDialogNotif(
+        isSuccess: true,
+        isRegister: true,
+        value: 'Pendaftaran',
+        textButton: 'Login',
+        onConfirm: () => Navigator.pushReplacementNamed(context, Routes.login),
+      ),
+    );
   }
 
   @override

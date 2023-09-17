@@ -34,7 +34,7 @@ class _TopUpViewState extends State<TopUpView> {
     showDialog(
       context: context,
       builder: (context) => AppDialogConfirm(
-          title: 'Apakah anda yakin untuk Top Up sebesar',
+          title: 'Anda yakin untuk Top Up sebesar',
           amount: 'Rp 10.000',
           confirmText: 'Ya, lanjutkan Top Up',
           onConfirm: () {}),
@@ -47,7 +47,7 @@ class _TopUpViewState extends State<TopUpView> {
       builder: (context) => AppDialogNotif(
         isSuccess: isSuccess,
         title: 'Top Up sebesar',
-        amount: 'Rp10.000',
+        value: 'Rp10.000',
       ),
     );
   }

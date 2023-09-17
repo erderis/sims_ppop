@@ -45,5 +45,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Kami memerlukan akses ke perpustakaan foto Anda untuk memungkinkan Anda memilih dan mengunggah foto untuk digunakan dalam aplikasi.</string>
 </dict>
 </plist>
