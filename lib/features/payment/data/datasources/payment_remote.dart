@@ -15,8 +15,7 @@ class PaymentRemoteImpl implements PaymentRemote {
   @override
   Future<TransactionResponseModel> transaction(
       {required String serviceCode, required String token}) async {
-    Map<String, String> header = AppApi.header;
-    header['Authorization'] = 'Bearer $token';
+    Map<String, String> header = {'Authorization': 'Bearer $token'};
     final response = await http.post(Uri.parse(AppApi.transaction),
         headers: header, body: {"service_code": serviceCode});
     print(response.statusCode);

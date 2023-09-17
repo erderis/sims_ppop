@@ -10,7 +10,7 @@ class ProfileEntity extends Equatable {
     required this.email,
     required this.firstName,
     required this.lastName,
-    required this.profileImage,
+    this.profileImage = '',
   });
 
   factory ProfileEntity.fromJson(Map<String, dynamic> json) {

@@ -13,8 +13,7 @@ abstract class BannerRemote {
 class BannerRemoteImpl implements BannerRemote {
   @override
   Future<BannerResponseModel> getBanner(String token) async {
-    Map<String, String> header = AppApi.header;
-    header['Authorization'] = 'Bearer $token';
+    Map<String, String> header = {'Authorization': 'Bearer $token'};
     final response = await http.get(Uri.parse(AppApi.banner), headers: header);
     print(response.statusCode);
     print(response.body);

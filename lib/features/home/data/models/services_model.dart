@@ -6,10 +6,13 @@ class ServicesResponseModel extends ResponseEntity {
       {required super.status, required super.message, required super.data});
 
   factory ServicesResponseModel.fromJson(Map<String, dynamic> json) {
+    final List<dynamic> jsonDataList = json['data'];
+    final List<ServicesModel> serviceList =
+        jsonDataList.map((item) => ServicesModel.fromJson(item)).toList();
     return ServicesResponseModel(
       status: json['status'],
       message: json['message'],
-      data: ServicesModel.fromJson(json['data']),
+      data: serviceList,
     );
   }
 }

@@ -15,10 +15,20 @@ class TopUpRemoteImpl implements TopUpRemote {
   @override
   Future<BalanceResponseModel> topUp(
       {required int amount, required String token}) async {
-    Map<String, String> header = AppApi.header;
-    header['Authorization'] = 'Bearer $token';
-    final response = await http.post(Uri.parse(AppApi.topup),
-        headers: header, body: {"top_up_amount": amount});
+    Map<String, String> header = {'Authorization': 'Bearer $token'};
+    final Map<String, dynamic> requestBody = {
+      "top_up_amount": amount,
+    };
+
+    final String requestBodyJson = jsonEncode(requestBody);
+    final response = await http.post(
+      Uri.parse(AppApi.topup),
+      headers: {
+        'Content-Type': 'application/json', // Set content type to JSON
+        ...header,
+      },
+      body: requestBodyJson,
+    );
     print(response.statusCode);
     print(response.body);
     final statusCode = response.statusCode;

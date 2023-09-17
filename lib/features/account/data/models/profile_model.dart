@@ -19,7 +19,7 @@ class ProfileModel extends ProfileEntity {
       {required super.email,
       required super.firstName,
       required super.lastName,
-      required super.profileImage});
+      super.profileImage});
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) {
     return ProfileModel(

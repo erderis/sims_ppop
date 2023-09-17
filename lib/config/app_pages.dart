@@ -10,7 +10,8 @@ import 'package:flutter/material.dart';
 class AppRouter {
   Route? generateRoute(RouteSettings settings) {
     final args = settings.arguments;
-    late Map<String, dynamic> newArgs;
+    print(args);
+    Map<String, dynamic> newArgs = {};
     if (args != null) {
       newArgs = args as Map<String, dynamic>;
     }
@@ -24,7 +25,10 @@ class AppRouter {
       case Routes.main:
         return MaterialPageRoute(builder: (_) => MainView());
       case Routes.payment:
-        return MaterialPageRoute(builder: (_) => const PaymentView());
+        return MaterialPageRoute(
+            builder: (_) => PaymentView(
+                  service: newArgs['service'],
+                ));
 
       default:
         return null;

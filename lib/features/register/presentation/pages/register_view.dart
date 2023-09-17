@@ -10,6 +10,7 @@ import 'package:simsppob/constants/app_padding.dart';
 import 'package:simsppob/constants/app_text_style.dart';
 import 'package:simsppob/features/register/presentation/provider/register_password_confirm_visibility_provider.dart';
 import 'package:simsppob/features/register/presentation/provider/register_password_visibility_provider.dart';
+import 'package:simsppob/features/register/presentation/provider/register_provider.dart';
 import 'package:simsppob/features/register/presentation/widgets/register_form_view.dart';
 import 'package:simsppob/utils/injection/injection_container.dart';
 
@@ -20,6 +21,9 @@ class RegisterView extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(
+          create: (context) => sl<RegisterProvider>(),
+        ),
         ChangeNotifierProvider(
           create: (context) => sl<RegisterPasswordVisibilityProvider>(),
         ),

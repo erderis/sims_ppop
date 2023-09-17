@@ -23,7 +23,7 @@ class LoginLocalImpl implements LoginLocal {
   Future<String> getLastLogin() {
     final jsonString = sharedPreferences.getString(cachedLoginData);
     if (jsonString != null) {
-      return Future.value(jsonString);
+      return Future.value(decryptData(jsonString));
     } else {
       throw CacheException();
     }

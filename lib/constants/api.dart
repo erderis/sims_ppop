@@ -2,10 +2,6 @@ class AppApi {
   //base url
   static const baseurl = "https://take-home-test-api.nutech-integrasi.app";
 
-  //header
-  static const header = {"Accept": "application/json"};
-  static const headerFile = {"Accept": "multipart/form-data"};
-
   // Module Membership
   static const registration = "$baseurl/registration";
   static const login = "$baseurl/login";

@@ -28,4 +28,24 @@ class LoginRepoImpl implements LoginRepo {
       return Left(NetworkFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, String>> getLastlogin() async {
+    try {
+      final response = await loginLocal.getLastLogin();
+      return Right(response);
+    } on CacheException {
+      return Left(CacheFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> deleteLastlogin() async {
+    try {
+      final response = await loginLocal.deleteLastLogin();
+      return Right(response);
+    } on CacheException {
+      return Left(CacheFailure());
+    }
+  }
 }

@@ -11,7 +11,6 @@ class AppDialogConfirm extends StatelessWidget {
   final String amount;
   final String confirmText;
   final String cancelText;
-  final VoidCallback onConfirm;
 
   const AppDialogConfirm({
     Key? key,
@@ -19,7 +18,6 @@ class AppDialogConfirm extends StatelessWidget {
     required this.amount,
     required this.confirmText,
     this.cancelText = 'Batalkan',
-    required this.onConfirm,
   }) : super(key: key);
 
   @override
@@ -64,7 +62,7 @@ class AppDialogConfirm extends StatelessWidget {
               height: AppPadding.verticalPaddingL,
             ),
             TextButton(
-              onPressed: onConfirm,
+              onPressed: () => Navigator.pop(context, true),
               child: Text(
                 confirmText,
                 style: AppTextStyles.descriptionTextStyle.copyWith(

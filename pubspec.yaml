@@ -8,6 +8,7 @@ environment:
   sdk: '>=3.0.6 <4.0.0'
 
 dependencies:
+  another_flushbar: ^1.12.30
   cupertino_icons: ^1.0.2
   currency_text_input_formatter: ^2.1.10
   dartz: ^0.10.1

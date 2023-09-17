@@ -16,8 +16,7 @@ class TransactionHistoryRemoteImpl implements TransactionHistoryRemote {
   @override
   Future<TransactionHistoryResponseModel> getTransactionHistory(
       {required TransactionHistoryParam params, required String token}) async {
-    Map<String, String> header = AppApi.header;
-    header['Authorization'] = 'Bearer $token';
+    Map<String, String> header = {'Authorization': 'Bearer $token'};
     final response = await http.get(
         Uri.parse(
             '${AppApi.transactionHistory}?offset=${params.offset}&limit=${params.limit}'),

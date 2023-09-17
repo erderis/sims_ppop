@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class BalanceEntity extends Equatable {
-  final String balance;
+  final int balance;
 
   const BalanceEntity({required this.balance});
 

@@ -79,7 +79,10 @@ class AppDialogNotif extends StatelessWidget {
                 height: AppPadding.verticalPaddingXL,
               ),
               TextButton(
-                onPressed: onConfirm ?? () => Navigator.pop(context),
+                onPressed: onConfirm ??
+                    () {
+                      Navigator.popUntil(context, (route) => route.isFirst);
+                    },
                 child: Text(
                   textButton ?? 'Kembali ke Beranda',
                   style: AppTextStyles.descriptionTextStyle.copyWith(

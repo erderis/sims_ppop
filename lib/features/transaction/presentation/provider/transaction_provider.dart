@@ -14,7 +14,9 @@ class TransactionProvider extends ChangeNotifier {
 
   DataState<TransactionHistoryEntity> get dataState => _dataState;
 
-  Future<void> getTransactionHistory(TransactionHistoryParam params) async {
+  Future<void> getTransactionHistory(
+    TransactionHistoryParam params,
+  ) async {
     _dataState = DataState(isLoading: true);
     notifyListeners();
 
@@ -23,8 +25,9 @@ class TransactionProvider extends ChangeNotifier {
     failureOrTransactionHistory.fold(
         (failure) => _dataState =
             DataState(isError: true, error: mapFailureToMessage(failure)),
-        (transactionHistory) =>
-            _dataState = DataState(isSuccess: true, data: transactionHistory));
+        (transactionHistory) {
+      _dataState = DataState(isSuccess: true, data: transactionHistory);
+    });
     notifyListeners();
   }
 }

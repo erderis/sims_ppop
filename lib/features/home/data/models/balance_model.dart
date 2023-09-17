@@ -9,7 +9,7 @@ class BalanceResponseModel extends ResponseEntity {
     return BalanceResponseModel(
       status: json['status'],
       message: json['message'],
-      data: json['data'],
+      data: BalanceModel.fromJson(json['data']),
     );
   }
 }

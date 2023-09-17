@@ -9,7 +9,7 @@ class TransactionResponseModel extends ResponseEntity {
     return TransactionResponseModel(
       status: json['status'],
       message: json['message'],
-      data: json['data'],
+      data: TransactionModel.fromJson(json['data']),
     );
   }
 }

@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 
 class TransactionHistoryEntity extends Equatable {
-  final int offset;
-  final int limit;
+  final String offset;
+  final String limit;
   final List<TransactionHistoryRecordEntity> records;
 
   const TransactionHistoryEntity({

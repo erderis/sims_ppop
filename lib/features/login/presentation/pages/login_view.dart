@@ -72,22 +72,28 @@ class LoginView extends StatelessWidget {
                 SizedBox(
                   height: AppPadding.verticalPaddingM * 2,
                 ),
-                RichText(
-                    text: TextSpan(
-                        style: AppTextStyles.descriptionTextStyle
-                            .copyWith(color: AppColors.textColorSecondary),
-                        children: [
-                      const TextSpan(text: 'Belum punya akun? registrasi '),
-                      TextSpan(
-                        text: 'di sini',
-                        style: AppTextStyles.descriptionTextStyle.copyWith(
-                            color: AppColors.accentColor,
-                            fontWeight: FontWeight.w600),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () =>
-                              Navigator.pushNamed(context, Routes.register),
-                      ),
-                    ]))
+                KeyboardVisibilityBuilder(
+                    builder: (context, isKeyboardVisible) {
+                  return Visibility(
+                    visible: !isKeyboardVisible,
+                    child: RichText(
+                        text: TextSpan(
+                            style: AppTextStyles.descriptionTextStyle
+                                .copyWith(color: AppColors.textColorSecondary),
+                            children: [
+                          const TextSpan(text: 'Belum punya akun? registrasi '),
+                          TextSpan(
+                            text: 'di sini',
+                            style: AppTextStyles.descriptionTextStyle.copyWith(
+                                color: AppColors.accentColor,
+                                fontWeight: FontWeight.w600),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () =>
+                                  Navigator.pushNamed(context, Routes.register),
+                          ),
+                        ])),
+                  );
+                })
               ],
             ),
           ),

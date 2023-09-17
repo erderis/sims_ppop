@@ -13,8 +13,7 @@ abstract class ServicesRemote {
 class ServicesRemoteImpl implements ServicesRemote {
   @override
   Future<ServicesResponseModel> getServices(String token) async {
-    Map<String, String> header = AppApi.header;
-    header['Authorization'] = 'Bearer $token';
+    Map<String, String> header = {'Authorization': 'Bearer $token'};
     final response =
         await http.get(Uri.parse(AppApi.services), headers: header);
     print(response.statusCode);

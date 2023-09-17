@@ -13,8 +13,7 @@ abstract class BalanceRemote {
 class BalanceRemoteImpl implements BalanceRemote {
   @override
   Future<BalanceResponseModel> getBalance(String token) async {
-    Map<String, String> header = AppApi.header;
-    header['Authorization'] = 'Bearer $token';
+    Map<String, String> header = {'Authorization': 'Bearer $token'};
     final response = await http.get(Uri.parse(AppApi.balance), headers: header);
     print(response.statusCode);
     print(response.body);

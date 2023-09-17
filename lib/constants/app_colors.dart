@@ -25,6 +25,7 @@ class AppColors {
 
   // Button colors
   static const Color buttonColor = AppColors.accentColor;
+  static const Color buttonDisabledColor = Color(0xFFC6C0C0);
 
   //delete colors
   static const Color deleteColor = Color(0xffE3756D);

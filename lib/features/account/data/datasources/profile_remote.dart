@@ -18,8 +18,7 @@ abstract class ProfileRemote {
 class ProfileRemoteImpl implements ProfileRemote {
   @override
   Future<ProfileResponseModel> getProfile(String token) async {
-    Map<String, String> header = AppApi.header;
-    header['Authorization'] = 'Bearer $token';
+    Map<String, String> header = {'Authorization': 'Bearer $token'};
     final response = await http.get(Uri.parse(AppApi.profile), headers: header);
     print(response.statusCode);
     print(response.body);
@@ -37,8 +36,7 @@ class ProfileRemoteImpl implements ProfileRemote {
   @override
   Future<ProfileResponseModel> updateProfile(
       {required ProfileModel profileModel, required String token}) async {
-    Map<String, String> header = AppApi.header;
-    header['Authorization'] = 'Bearer $token';
+    Map<String, String> header = {'Authorization': 'Bearer $token'};
     final response = await http.put(Uri.parse(AppApi.profileUpdate),
         headers: header, body: profileModel.toJson());
     print(response.statusCode);
@@ -57,9 +55,9 @@ class ProfileRemoteImpl implements ProfileRemote {
   @override
   Future<ProfileResponseModel> updateProfileImage(
       {required String filePath, required String token}) async {
-    Map<String, String> header = AppApi.headerFile;
-    header['Authorization'] = 'Bearer $token';
+    print('called');
 
+    Map<String, String> header = {'Authorization': 'Bearer $token'};
     final body = dio.FormData.fromMap({});
     body.files.add(MapEntry(
         'file',
@@ -70,6 +68,8 @@ class ProfileRemoteImpl implements ProfileRemote {
         data: body, options: dio.Options(headers: header));
 
     final statusCode = response.statusCode;
+    print(response.statusCode);
+    print(response.data);
     if (statusCode == 200) {
       return ProfileResponseModel.fromJson(json.decode(response.data));
     } else if ([400, 401].contains(statusCode)) {

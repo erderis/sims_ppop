@@ -8,6 +8,7 @@ import 'package:simsppob/features/login/data/models/login_model.dart';
 import 'package:simsppob/features/login/presentation/provider/login_password_visibility_provider.dart';
 import 'package:simsppob/features/login/presentation/provider/login_provider.dart';
 import 'package:simsppob/utils/helper/email_validator.dart';
+import 'package:simsppob/utils/helper/show_app_toast.dart';
 
 class LoginFormView extends StatefulWidget {
   const LoginFormView({super.key});
@@ -22,18 +23,20 @@ class _LoginFormViewState extends State<LoginFormView> {
   final TextEditingController _passwordController = TextEditingController();
 
   void onLogin(BuildContext context, LoginProvider provider) {
-    // if (formKey.currentState?.validate() == true) {
-    //   provider
-    //       .login(LoginModel(
-    //           email: _emailController.text, password: _passwordController.text))
-    //       .then((value) {
-    //     if (provider.dataState.isSuccess) {
-    //       Navigator.pushNamedAndRemoveUntil(
-    //           context, Routes.main, (routes) => false);
-    //     }
-    //   });
-    // }
-    Navigator.pushNamedAndRemoveUntil(context, Routes.main, (routes) => false);
+    if (formKey.currentState?.validate() == true) {
+      provider
+          .login(LoginModel(
+              email: _emailController.text, password: _passwordController.text))
+          .then((value) {
+        if (provider.dataState.isSuccess) {
+          Navigator.pushNamedAndRemoveUntil(
+              context, Routes.main, (routes) => false);
+        }
+        if (provider.dataState.isError) {
+          showAppToast(context, message: provider.dataState.error!);
+        }
+      });
+    }
   }
 
   @override
@@ -80,6 +83,8 @@ class _LoginFormViewState extends State<LoginFormView> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'password tidak boleh kosong';
+                    } else if (value.length < 8) {
+                      return 'password tidak boleh kurang dari 8 karakter';
                     }
                     return null;
                   },
@@ -99,7 +104,9 @@ class _LoginFormViewState extends State<LoginFormView> {
               return AppButton(
                 text: 'Masuk',
                 isLoading: provider.dataState.isLoading,
-                onPressed: () => onLogin(context, provider),
+                onPressed: provider.dataState.isLoading
+                    ? () {}
+                    : () => onLogin(context, provider),
               );
             }),
           ],

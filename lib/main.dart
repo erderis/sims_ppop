@@ -7,8 +7,20 @@ import 'package:provider/provider.dart';
 import 'package:simsppob/config/app_pages.dart';
 import 'package:simsppob/config/app_routes.dart';
 import 'package:simsppob/constants/app_colors.dart';
+import 'package:simsppob/features/account/presentation/provider/profile_provider.dart';
+import 'package:simsppob/features/account/presentation/provider/update_profile_image_provider.dart';
+import 'package:simsppob/features/account/presentation/provider/update_profile_provider.dart';
+import 'package:simsppob/features/home/presentation/provider/balance_provider.dart';
+import 'package:simsppob/features/home/presentation/provider/banner_provider.dart';
 import 'package:simsppob/features/home/presentation/provider/saldo_visibility_provider.dart';
+import 'package:simsppob/features/home/presentation/provider/services_provider.dart';
+import 'package:simsppob/features/login/presentation/provider/last_login_provider.dart';
 import 'package:simsppob/features/main/presentation/provider/navbar_provider.dart';
+import 'package:simsppob/features/payment/presentation/provider/payment_provider.dart';
+import 'package:simsppob/features/topup/presentation/provider/topup_field_state_provider.dart';
+import 'package:simsppob/features/topup/presentation/provider/topup_provider.dart';
+import 'package:simsppob/features/transaction/domain/usecases/get_transaction_history.dart';
+import 'package:simsppob/features/transaction/presentation/provider/transaction_provider.dart';
 import 'package:simsppob/utils/injection/injection_container.dart' as di;
 
 import 'utils/injection/injection_container.dart';
@@ -41,7 +53,43 @@ class SIMSPPOB extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => SaldoVisibilityProvider(),
-        )
+        ),
+        ChangeNotifierProvider(
+          create: (_) => sl<BalanceProvider>()..getBalance(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => sl<ServicesProvider>()..getServices(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => sl<BannerProvider>()..getBanner(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => sl<TopUpFieldStateProvider>(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => sl<TopUpProvider>(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => sl<TransactionProvider>()
+            ..getTransactionHistory(
+              const TransactionHistoryParam(offset: 0, limit: 5),
+            ),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => sl<PaymentProvider>(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => sl<ProfileProvider>()..getProfile(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => sl<UpdateProfileProvider>(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => sl<UpdateProfileImageProvider>(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => sl<LastLoginProvider>()..appStarted(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

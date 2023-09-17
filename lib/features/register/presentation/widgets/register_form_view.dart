@@ -5,9 +5,12 @@ import 'package:simsppob/constants/app_padding.dart';
 import 'package:simsppob/core/widgets/app_button.dart';
 import 'package:simsppob/core/widgets/app_dialog_notif.dart';
 import 'package:simsppob/core/widgets/app_text_field.dart';
+import 'package:simsppob/features/register/data/models/register_model.dart';
 import 'package:simsppob/features/register/presentation/provider/register_password_confirm_visibility_provider.dart';
 import 'package:simsppob/features/register/presentation/provider/register_password_visibility_provider.dart';
+import 'package:simsppob/features/register/presentation/provider/register_provider.dart';
 import 'package:simsppob/utils/helper/email_validator.dart';
+import 'package:simsppob/utils/helper/show_app_toast.dart';
 
 class RegisterFormView extends StatefulWidget {
   const RegisterFormView({super.key});
@@ -25,14 +28,25 @@ class _LoginFormViewState extends State<RegisterFormView> {
   final TextEditingController _passwordConfirmController =
       TextEditingController();
 
-  void onRegister(BuildContext context) {
-    // Navigator.pushNamedAndRemoveUntil(context, Routes.main, (routes) => false);
-    showDialogNotif(context);
-
-    // if (formKey.currentState?.validate() == true) {
-    //   // Implement your login logic here
-    //   // Access emailController.text and passwordController.text to get the entered email and password
-    // }
+  void onRegister(BuildContext context, {required RegisterProvider provider}) {
+    if (formKey.currentState?.validate() == true) {
+      provider
+          .register(RegisterModel(
+              email: _emailController.text,
+              firstName: _firstNameController.text,
+              lastName: _lastNameController.text,
+              password: _passwordController.text))
+          .then((value) {
+        if (provider.dataState.isSuccess) {
+          showDialogNotif(context);
+        }
+        if (provider.dataState.isError) {
+          showAppToast(context, message: provider.dataState.error!);
+        }
+      });
+      // Implement your login logic here
+      // Access emailController.text and passwordController.text to get the entered email and password
+    }
   }
 
   void showDialogNotif(BuildContext context) {
@@ -120,7 +134,7 @@ class _LoginFormViewState extends State<RegisterFormView> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'password tidak boleh kosong';
-                    } else if (_passwordConfirmController.text.length < 8) {
+                    } else if (value.length < 8) {
                       return 'password tidak boleh kurang dari 8 karakter';
                     }
                     return null;
@@ -146,8 +160,7 @@ class _LoginFormViewState extends State<RegisterFormView> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'password tidak boleh kosong';
-                    } else if (_passwordController.text !=
-                        _passwordConfirmController.text) {
+                    } else if (_passwordController.text != value) {
                       return 'password tidak sama';
                     }
                     return null;
@@ -162,10 +175,15 @@ class _LoginFormViewState extends State<RegisterFormView> {
               },
             ),
             SizedBox(height: AppPadding.verticalPaddingM * 2),
-            AppButton(
-              text: 'Registrasi',
-              onPressed: () => onRegister(context),
-            ),
+            Consumer<RegisterProvider>(builder: (context, provider, _) {
+              return AppButton(
+                text: 'Registrasi',
+                isLoading: provider.dataState.isLoading,
+                onPressed: provider.dataState.isLoading
+                    ? () {}
+                    : () => onRegister(context, provider: provider),
+              );
+            }),
           ],
         ),
       ),
