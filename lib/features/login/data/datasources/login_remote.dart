@@ -17,7 +17,6 @@ class LoginRemoteImpl implements LoginRemote {
     final response = await http.post(
       Uri.parse(AppApi.login),
       body: loginModel.toJson(),
-      // headers: header,
     );
     print(response.statusCode);
     print(response.body);

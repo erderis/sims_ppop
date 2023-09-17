@@ -3,13 +3,14 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'package:simsppob/config/app_routes.dart';
 import 'package:simsppob/constants/app_assets.dart';
 import 'package:simsppob/constants/app_colors.dart';
 import 'package:simsppob/constants/app_padding.dart';
 import 'package:simsppob/constants/app_text_style.dart';
-import 'package:simsppob/features/register/presentation/cubit/register_password_confirm_visibility_cubit.dart';
-import 'package:simsppob/features/register/presentation/cubit/register_password_visibility_cubit.dart';
+import 'package:simsppob/features/register/presentation/provider/register_password_confirm_visibility_provider.dart';
+import 'package:simsppob/features/register/presentation/provider/register_password_visibility_provider.dart';
 import 'package:simsppob/features/register/presentation/widgets/register_form_view.dart';
 import 'package:simsppob/utils/injection/injection_container.dart';
 
@@ -20,11 +21,11 @@ class RegisterView extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (context) => sl<RegisterPasswordVisibilityCubit>(),
+        ChangeNotifierProvider(
+          create: (context) => sl<RegisterPasswordVisibilityProvider>(),
         ),
-        BlocProvider(
-          create: (context) => sl<RegisterPasswordConfirmVisibilityCubit>(),
+        ChangeNotifierProvider(
+          create: (context) => sl<RegisterPasswordConfirmVisibilityProvider>(),
         ),
       ],
       child: Scaffold(

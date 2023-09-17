@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:simsppob/constants/app_padding.dart';
 import 'package:simsppob/core/widgets/app_button.dart';
 import 'package:simsppob/core/widgets/app_text_field.dart';
-import 'package:simsppob/features/register/presentation/cubit/register_password_confirm_visibility_cubit.dart';
-import 'package:simsppob/features/register/presentation/cubit/register_password_visibility_cubit.dart';
+import 'package:simsppob/features/register/presentation/provider/register_password_confirm_visibility_provider.dart';
+import 'package:simsppob/features/register/presentation/provider/register_password_visibility_provider.dart';
 import 'package:simsppob/utils/helper/email_validator.dart';
 
 class RegisterFormView extends StatefulWidget {
@@ -94,13 +93,13 @@ class _LoginFormViewState extends State<RegisterFormView> {
               prefixIcon: Icons.person_outline,
             ),
             SizedBox(height: AppPadding.verticalPaddingM * 2),
-            BlocBuilder<RegisterPasswordVisibilityCubit, bool>(
-              builder: (context, isPasswordVisible) {
+            Consumer<RegisterPasswordVisibilityProvider>(
+              builder: (context, provider, _) {
                 return AppTextField(
                   controller: _passwordController,
                   hintText: 'buat password',
                   isPassword: true,
-                  isPasswordVisible: isPasswordVisible,
+                  isPasswordVisible: provider.visibility,
                   textInputAction: TextInputAction.next,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -112,21 +111,21 @@ class _LoginFormViewState extends State<RegisterFormView> {
                   },
                   togglePasswordVisibility: () {
                     context
-                        .read<RegisterPasswordVisibilityCubit>()
-                        .setVisibility(!isPasswordVisible);
+                        .read<RegisterPasswordVisibilityProvider>()
+                        .setVisibility(!provider.visibility);
                   },
                   prefixIcon: Icons.lock_outline,
                 );
               },
             ),
             SizedBox(height: AppPadding.verticalPaddingM * 2),
-            BlocBuilder<RegisterPasswordConfirmVisibilityCubit, bool>(
-              builder: (context, isPasswordVisible) {
+            Consumer<RegisterPasswordConfirmVisibilityProvider>(
+              builder: (context, provider, _) {
                 return AppTextField(
                   controller: _passwordConfirmController,
                   hintText: 'konfirmasi password',
                   isPassword: true,
-                  isPasswordVisible: isPasswordVisible,
+                  isPasswordVisible: provider.visibility,
                   textInputAction: TextInputAction.done,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -139,8 +138,8 @@ class _LoginFormViewState extends State<RegisterFormView> {
                   },
                   togglePasswordVisibility: () {
                     context
-                        .read<RegisterPasswordConfirmVisibilityCubit>()
-                        .setVisibility(!isPasswordVisible);
+                        .read<RegisterPasswordConfirmVisibilityProvider>()
+                        .setVisibility(!provider.visibility);
                   },
                   prefixIcon: Icons.lock_outline,
                 );

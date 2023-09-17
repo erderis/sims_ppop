@@ -7,7 +7,7 @@ import 'package:simsppob/features/login/presentation/provider/login_password_vis
 import 'package:simsppob/features/login/presentation/provider/login_provider.dart';
 import 'package:simsppob/utils/injection/injection_container.dart';
 
-Future<void> initLogin() async {
+Future<void> initInjectionLogin() async {
   //provider
   sl.registerFactory(() => LoginProvider(sl()));
   sl.registerFactory(() => LoginPasswordVisibilityProvider());
