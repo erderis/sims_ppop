@@ -5,11 +5,14 @@ import 'package:simsppob/constants/app_colors.dart';
 import 'package:simsppob/constants/app_padding.dart';
 import 'package:simsppob/constants/app_text_style.dart';
 import 'package:simsppob/core/widgets/app_text_field.dart';
+import 'package:simsppob/utils/helper/format_currency.dart';
 
 class TopUpFormView extends StatelessWidget {
-  const TopUpFormView({super.key, required this.amountController});
+  const TopUpFormView(
+      {super.key, required this.amountController, required this.formKey});
 
   final TextEditingController amountController;
+  final GlobalKey<FormState> formKey;
 
   @override
   Widget build(BuildContext context) {
@@ -22,59 +25,70 @@ class TopUpFormView extends StatelessWidget {
       '500.000'
     ];
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Silahkan Masukkan',
-          style: AppTextStyles.subTitleTextStyle
-              .copyWith(fontWeight: FontWeight.normal),
-        ),
-        SizedBox(
-          height: AppPadding.verticalPaddingS / 2,
-        ),
-        Text(
-          'Nominal Top Up',
-          style: AppTextStyles.subTitleTextStyle
-              .copyWith(fontWeight: FontWeight.w500),
-        ),
-        SizedBox(
-          height: AppPadding.verticalPaddingM * 2,
-        ),
-        AppTextField(
-          controller: amountController,
-          hintText: 'masukkan nominal Top Up',
-          textInputType: TextInputType.number,
-          textInputAction: TextInputAction.done,
-          inputFormatters: [
-            CurrencyTextInputFormatter(
-                locale: 'id', symbol: '', decimalDigits: 0)
-          ],
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'nominal tidak boleh kosong';
-            }
-            return null;
-          },
-          prefixIcon: Icons.money,
-        ),
-        SizedBox(
-          height: AppPadding.verticalPaddingXL,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: List.generate(amountTemplates.length - 3,
-              (index) => _buildNominalItem(amountTemplates[index])),
-        ),
-        SizedBox(
-          height: AppPadding.verticalPaddingL,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: List.generate(amountTemplates.length - 3,
-              (index) => _buildNominalItem(amountTemplates[index + 3])),
-        ),
-      ],
+    return Form(
+      key: formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Silahkan Masukkan',
+            style: AppTextStyles.subTitleTextStyle
+                .copyWith(fontWeight: FontWeight.normal),
+          ),
+          SizedBox(
+            height: AppPadding.verticalPaddingS / 2,
+          ),
+          Text(
+            'Nominal Top Up',
+            style: AppTextStyles.subTitleTextStyle
+                .copyWith(fontWeight: FontWeight.w500),
+          ),
+          SizedBox(
+            height: AppPadding.verticalPaddingM * 2,
+          ),
+          AppTextField(
+            controller: amountController,
+            hintText: 'masukkan nominal Top Up',
+            textInputType: TextInputType.number,
+            textInputAction: TextInputAction.done,
+            inputFormatters: [
+              CurrencyTextInputFormatter(
+                  locale: 'id', symbol: '', decimalDigits: 0)
+            ],
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'nominal tidak boleh kosong';
+              }
+              final cleanedValue = unformatCurrency(value);
+              final parsedValue = int.tryParse(cleanedValue);
+              if (parsedValue == null || parsedValue < 10000) {
+                return 'Nominal minimal 10.000';
+              }
+              if (parsedValue > 1000000) {
+                return 'Nominal maksimal 1.000.000';
+              }
+              return null;
+            },
+            prefixIcon: Icons.money,
+          ),
+          SizedBox(
+            height: AppPadding.verticalPaddingXL,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: List.generate(amountTemplates.length - 3,
+                (index) => _buildNominalItem(amountTemplates[index])),
+          ),
+          SizedBox(
+            height: AppPadding.verticalPaddingL,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: List.generate(amountTemplates.length - 3,
+                (index) => _buildNominalItem(amountTemplates[index + 3])),
+          ),
+        ],
+      ),
     );
   }
 

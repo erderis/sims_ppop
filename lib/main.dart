@@ -19,7 +19,6 @@ import 'package:simsppob/features/main/presentation/provider/navbar_provider.dar
 import 'package:simsppob/features/payment/presentation/provider/payment_provider.dart';
 import 'package:simsppob/features/topup/presentation/provider/topup_field_state_provider.dart';
 import 'package:simsppob/features/topup/presentation/provider/topup_provider.dart';
-import 'package:simsppob/features/transaction/domain/usecases/get_transaction_history.dart';
 import 'package:simsppob/features/transaction/presentation/provider/transaction_provider.dart';
 import 'package:simsppob/utils/injection/injection_container.dart' as di;
 
@@ -70,10 +69,7 @@ class SIMSPPOB extends StatelessWidget {
           create: (_) => sl<TopUpProvider>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => sl<TransactionProvider>()
-            ..getTransactionHistory(
-              const TransactionHistoryParam(offset: 0, limit: 5),
-            ),
+          create: (_) => sl<TransactionProvider>()..getTransactionHistory(),
         ),
         ChangeNotifierProvider(
           create: (_) => sl<PaymentProvider>(),

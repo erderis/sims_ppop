@@ -14,6 +14,8 @@ import 'package:simsppob/features/topup/presentation/provider/topup_provider.dar
 import 'package:simsppob/features/topup/presentation/widgets/topup_form_view.dart';
 import 'package:simsppob/utils/helper/format_currency.dart';
 import 'package:simsppob/utils/helper/show_app_dialog_loading.dart';
+import 'package:simsppob/utils/helper/show_app_toast.dart';
+import 'package:simsppob/utils/helper/update_balance_transaction.dart';
 import 'package:simsppob/utils/injection/injection_container.dart';
 
 class TopUpView extends StatefulWidget {
@@ -25,6 +27,7 @@ class TopUpView extends StatefulWidget {
 
 class _TopUpViewState extends State<TopUpView> {
   final amountController = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -32,32 +35,43 @@ class _TopUpViewState extends State<TopUpView> {
     amountController.addListener(_onTextChanged);
   }
 
-  void _onTextChanged() {
+  void _onTextChanged({bool? isFilled}) {
     final provider =
         Provider.of<TopUpFieldStateProvider>(context, listen: false);
-    provider.setIsFilled(amountController.text.isNotEmpty);
+    provider.setIsFilled(isFilled ?? amountController.text.isNotEmpty);
   }
 
   void showDialogConfirm<bool>(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (context) => AppDialogConfirm(
-              title: 'Anda yakin untuk Top Up sebesar',
-              amount: 'Rp ${amountController.text}',
-              confirmText: 'Ya, lanjutkan Top Up',
-            )).then((value) {
-      if (value) {
-        showAppDialogLoading(context);
-        final paymentProvider = sl<TopUpProvider>();
-        final amount = int.parse(unformatCurrency(amountController.text));
-        paymentProvider.topUp(amount).then((value) {
-          Navigator.pop(context);
-          if (paymentProvider.dataState.isError) {
-            showDialogNotif(context, isSuccess: false);
-          } else if (paymentProvider.dataState.isSuccess) {
-            showDialogNotif(context, isSuccess: true);
+    if (formKey.currentState?.validate() == true) {
+      showDialog(
+          context: context,
+          builder: (context) => AppDialogConfirm(
+                title: 'Anda yakin untuk Top Up sebesar',
+                amount: 'Rp ${amountController.text}',
+                confirmText: 'Ya, lanjutkan Top Up',
+              )).then((value) {
+        if (value != null) {
+          if (value) {
+            handleTopUp(context);
           }
-        });
+        }
+      });
+    }
+  }
+
+  void handleTopUp(BuildContext context) {
+    showAppDialogLoading(context);
+    final paymentProvider = sl<TopUpProvider>();
+    final amount = int.parse(unformatCurrency(amountController.text));
+    paymentProvider.topUp(amount).then((value) {
+      Navigator.pop(context);
+      _onTextChanged(isFilled: false);
+      if (paymentProvider.dataState.isError) {
+        showDialogNotif(context, isSuccess: false);
+        showAppToast(context, message: paymentProvider.dataState.error!);
+      } else if (paymentProvider.dataState.isSuccess) {
+        showDialogNotif(context, isSuccess: true);
+        updateBalanceTransaction(context);
       }
     });
   }
@@ -69,8 +83,17 @@ class _TopUpViewState extends State<TopUpView> {
         isSuccess: isSuccess,
         title: 'Top Up sebesar',
         value: 'Rp10.000',
+        onConfirm: () {
+          Navigator.pop(context);
+          onBack();
+        },
       ),
     );
+  }
+
+  void onBack() {
+    final navbarProvider = Provider.of<NavbarProvider>(context, listen: false);
+    navbarProvider.changeNavbar(0);
   }
 
   @override
@@ -85,11 +108,7 @@ class _TopUpViewState extends State<TopUpView> {
       appBar: PreferredSize(
           preferredSize: appBarSize,
           child: AppHeader(
-            onBack: () {
-              final navbarProvider =
-                  Provider.of<NavbarProvider>(context, listen: false);
-              navbarProvider.changeNavbar(0);
-            },
+            onBack: onBack,
             title: 'Top Up',
           )),
       body: InkWell(
@@ -107,7 +126,7 @@ class _TopUpViewState extends State<TopUpView> {
             SizedBox(
               height: AppPadding.verticalPaddingL * 3,
             ),
-            TopUpFormView(amountController: amountController),
+            TopUpFormView(amountController: amountController, formKey: formKey),
             SizedBox(
               height: AppPadding.verticalPaddingL * 3,
             ),

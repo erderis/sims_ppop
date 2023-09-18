@@ -14,8 +14,10 @@ class ServicesProvider extends ChangeNotifier {
 
   DataState<List<ServiceEntity>> get dataState => _dataState;
 
-  Future<void> getServices() async {
-    _dataState = DataState(isLoading: true);
+  Future<void> getServices({bool isWithLoading = true}) async {
+    if (isWithLoading) {
+      _dataState = DataState(isLoading: true);
+    }
     notifyListeners();
 
     final failureOrServices = await getServicesUseCase(NoParams());

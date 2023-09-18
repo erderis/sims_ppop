@@ -15,8 +15,6 @@ class BalanceRemoteImpl implements BalanceRemote {
   Future<BalanceResponseModel> getBalance(String token) async {
     Map<String, String> header = {'Authorization': 'Bearer $token'};
     final response = await http.get(Uri.parse(AppApi.balance), headers: header);
-    print(response.statusCode);
-    print(response.body);
     final statusCode = response.statusCode;
     if (statusCode == 200) {
       return BalanceResponseModel.fromJson(json.decode(response.body));

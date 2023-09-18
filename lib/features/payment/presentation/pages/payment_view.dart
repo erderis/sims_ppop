@@ -15,6 +15,8 @@ import 'package:simsppob/features/home/domain/entities/services_entity.dart';
 import 'package:simsppob/features/payment/presentation/provider/payment_provider.dart';
 import 'package:simsppob/utils/helper/format_currency.dart';
 import 'package:simsppob/utils/helper/show_app_dialog_loading.dart';
+import 'package:simsppob/utils/helper/show_app_toast.dart';
+import 'package:simsppob/utils/helper/update_balance_transaction.dart';
 import 'package:simsppob/utils/injection/injection_container.dart';
 
 class PaymentView extends StatefulWidget {
@@ -53,8 +55,10 @@ class _PaymentViewState extends State<PaymentView> {
             Navigator.pop(context);
             if (paymentProvider.dataState.isError) {
               showDialogNotif(context, isSuccess: false);
+              showAppToast(context, message: paymentProvider.dataState.error!);
             } else if (paymentProvider.dataState.isSuccess) {
               showDialogNotif(context, isSuccess: true);
+              updateBalanceTransaction(context);
             }
           });
         }

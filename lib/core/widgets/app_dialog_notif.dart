@@ -29,8 +29,10 @@ class AppDialogNotif extends StatelessWidget {
         insetPadding: EdgeInsets.all(AppPadding.horizontalPaddingXL),
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppPadding.radius * 2)),
-        child: SizedBox(
+        child: Container(
           width: ScreenUtil().screenWidth,
+          padding:
+              EdgeInsets.symmetric(horizontal: AppPadding.horizontalPaddingM),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -58,6 +60,7 @@ class AppDialogNotif extends StatelessWidget {
                   title,
                   style: AppTextStyles.descriptionTextStyle
                       .copyWith(fontSize: 16.sp),
+                  textAlign: TextAlign.center,
                 ),
               ),
               SizedBox(

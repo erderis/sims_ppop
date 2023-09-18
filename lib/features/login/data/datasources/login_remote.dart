@@ -18,8 +18,6 @@ class LoginRemoteImpl implements LoginRemote {
       Uri.parse(AppApi.login),
       body: loginModel.toJson(),
     );
-    print(response.statusCode);
-    print(response.body);
     final statusCode = response.statusCode;
     if (statusCode == 200) {
       final loginResponse =

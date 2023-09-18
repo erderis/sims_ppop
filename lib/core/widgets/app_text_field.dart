@@ -16,7 +16,9 @@ class AppTextField extends StatelessWidget {
   final TextInputType? textInputType;
   final Function()? togglePasswordVisibility;
   final Function(String)? onChanged;
+  final Function(String)? onFieldSubmitted;
   final String? Function(String?)? validator;
+  final FocusNode? focusNode;
   final String hintText;
   final bool isPassword;
   final bool isPasswordVisible;
@@ -31,7 +33,7 @@ class AppTextField extends StatelessWidget {
     this.isPassword = false,
     this.isPasswordVisible = false,
     this.togglePasswordVisibility,
-    this.maxLines,
+    this.maxLines = 1,
     this.textInputAction,
     this.onChanged,
     this.textCapitalization = TextCapitalization.none,
@@ -39,36 +41,52 @@ class AppTextField extends StatelessWidget {
     this.readOnly = false,
     required this.prefixIcon,
     this.inputFormatters,
+    this.onFieldSubmitted,
+    this.focusNode,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Theme(
       data: Theme.of(context).copyWith(
-        colorScheme: ThemeData().colorScheme.copyWith(
-              primary: AppColors.textColor,
-            ),
+        inputDecorationTheme: Theme.of(context).inputDecorationTheme.copyWith(
+          prefixIconColor:
+              MaterialStateColor.resolveWith((Set<MaterialState> states) {
+            if (states.contains(MaterialState.focused)) {
+              return AppColors.textColor;
+            }
+            if (states.contains(MaterialState.error)) {
+              return AppColors.failed;
+            }
+            if (controller.text.isNotEmpty) {
+              return AppColors.textColor;
+            }
+            return AppColors.hintTextColor;
+          }),
+        ),
       ),
       child: TextFormField(
         controller: controller,
         onChanged: onChanged,
+        onFieldSubmitted: onFieldSubmitted,
         textCapitalization: textCapitalization,
         keyboardType: textInputType,
         style: AppTextStyles.descriptionTextStyle,
         obscureText: isPassword ? !isPasswordVisible : false,
-        maxLines: isPassword ? 1 : maxLines,
+        maxLines: maxLines,
         textInputAction: textInputAction,
         readOnly: readOnly,
         inputFormatters: inputFormatters,
+        focusNode: focusNode,
         decoration: InputDecoration(
           hintText: hintText,
           filled: true,
+          fillColor: AppColors.fieldColor,
           contentPadding:
               EdgeInsets.symmetric(vertical: AppPadding.horizontalPaddingS),
           hintStyle: AppTextStyles.descriptionTextStyle.copyWith(
               color: AppColors.hintTextColor, fontWeight: FontWeight.w500),
           errorStyle: AppTextStyles.descriptionTextStyle
               .copyWith(color: AppColors.failed),
-          fillColor: AppColors.fieldColor,
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppPadding.radius),
               borderSide: const BorderSide(color: AppColors.borderColor)),
@@ -84,9 +102,6 @@ class AppTextField extends StatelessWidget {
           prefixIcon: Icon(
             prefixIcon,
             size: 20,
-            // color: controller.text.isNotEmpty
-            //     ? AppColors.textColor
-            //     : AppColors.hintTextColor,
           ),
           suffixIcon: isPassword
               ? Transform.translate(

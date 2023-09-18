@@ -14,8 +14,10 @@ class BalanceProvider extends ChangeNotifier {
 
   DataState<BalanceEntity> get dataState => _dataState;
 
-  Future<void> getBalance() async {
-    _dataState = DataState(isLoading: true);
+  Future<void> getBalance({bool isWithLoading = true}) async {
+    if (isWithLoading) {
+      _dataState = DataState(isLoading: true);
+    }
     notifyListeners();
 
     final failureOrBalance = await getBalanceUseCase(NoParams());

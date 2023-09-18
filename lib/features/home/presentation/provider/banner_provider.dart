@@ -14,8 +14,10 @@ class BannerProvider extends ChangeNotifier {
 
   DataState<List<BannerEntity>> get dataState => _dataState;
 
-  Future<void> getBanner() async {
-    _dataState = DataState(isLoading: true);
+  Future<void> getBanner({bool isWithLoading = true}) async {
+    if (isWithLoading) {
+      _dataState = DataState(isLoading: true);
+    }
     notifyListeners();
 
     final failureOrBanner = await getBannerUseCase(NoParams());

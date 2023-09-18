@@ -5,8 +5,13 @@ import 'package:simsppob/constants/app_colors.dart';
 import 'package:simsppob/constants/app_padding.dart';
 import 'package:simsppob/constants/app_text_style.dart';
 
+Flushbar?
+    _currentFlushbar; // Variable to store the currently displayed Flushbar.
+
 void showAppToast(BuildContext context, {required String message}) {
-  Flushbar(
+  _currentFlushbar?.dismiss(); // Dismiss any existing Flushbar.
+
+  _currentFlushbar = Flushbar(
     messageText: Text(
       message,
       style: AppTextStyles.descriptionTextStyle
@@ -14,7 +19,7 @@ void showAppToast(BuildContext context, {required String message}) {
     ),
     mainButton: IconButton(
       onPressed: () {
-        // flush.dismiss();
+        _currentFlushbar?.dismiss(); // Dismiss the current Flushbar.
       },
       icon: const Icon(
         Icons.close,
@@ -26,6 +31,8 @@ void showAppToast(BuildContext context, {required String message}) {
     borderRadius: BorderRadius.circular(5.r),
     flushbarStyle: FlushbarStyle.FLOATING,
     duration: const Duration(seconds: 3),
-    backgroundColor: AppColors.accentColor.withOpacity(0.05),
-  ).show(context);
+    backgroundColor: AppColors.toastColor,
+  );
+
+  _currentFlushbar?.show(context);
 }

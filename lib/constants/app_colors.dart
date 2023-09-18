@@ -30,8 +30,10 @@ class AppColors {
   //delete colors
   static const Color deleteColor = Color(0xffE3756D);
 
-  //indicator
-  // static const Color pending = Color(0xffFFC107);
+  //indicator colors
   static const Color success = Color(0xff52BD94);
   static const Color failed = Color(0xffE3756D);
+
+  //toast color
+  static const Color toastColor = Color(0xffFFF5F3);
 }

@@ -27,9 +27,12 @@ class _LoginFormViewState extends State<RegisterFormView> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _passwordConfirmController =
       TextEditingController();
+  final _passwordFocusNode = FocusNode();
 
   void onRegister(BuildContext context, {required RegisterProvider provider}) {
     if (formKey.currentState?.validate() == true) {
+      FocusScope.of(context).unfocus();
+
       provider
           .register(RegisterModel(
               email: _emailController.text,
@@ -131,6 +134,7 @@ class _LoginFormViewState extends State<RegisterFormView> {
                   isPassword: true,
                   isPasswordVisible: provider.visibility,
                   textInputAction: TextInputAction.next,
+                  onFieldSubmitted: (_) => _passwordFocusNode.requestFocus(),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'password tidak boleh kosong';
@@ -156,6 +160,7 @@ class _LoginFormViewState extends State<RegisterFormView> {
                   hintText: 'konfirmasi password',
                   isPassword: true,
                   isPasswordVisible: provider.visibility,
+                  focusNode: _passwordFocusNode,
                   textInputAction: TextInputAction.done,
                   validator: (value) {
                     if (value == null || value.isEmpty) {

@@ -14,8 +14,10 @@ class ProfileProvider extends ChangeNotifier {
 
   DataState<ProfileEntity> get dataState => _dataState;
 
-  Future<void> getProfile() async {
-    _dataState = DataState(isLoading: true);
+  Future<void> getProfile({bool isWithLoading = true}) async {
+    if (isWithLoading) {
+      _dataState = DataState(isLoading: true);
+    }
     notifyListeners();
 
     final failureOrProfile = await getProfileUseCase(NoParams());

@@ -17,8 +17,6 @@ class RegisterRemoteImpl implements RegisterRemote {
       Uri.parse(AppApi.registration),
       body: registerModel.toJson(),
     );
-    print(response.statusCode);
-    print(response.body);
     final statusCode = response.statusCode;
     if (statusCode == 200) {
       return Future.value();

@@ -18,8 +18,6 @@ class PaymentRemoteImpl implements PaymentRemote {
     Map<String, String> header = {'Authorization': 'Bearer $token'};
     final response = await http.post(Uri.parse(AppApi.transaction),
         headers: header, body: {"service_code": serviceCode});
-    print(response.statusCode);
-    print(response.body);
     final statusCode = response.statusCode;
     if (statusCode == 200) {
       return TransactionResponseModel.fromJson(json.decode(response.body));

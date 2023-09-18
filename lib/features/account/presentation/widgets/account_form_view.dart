@@ -11,6 +11,7 @@ import 'package:simsppob/features/account/presentation/provider/profile_provider
 import 'package:simsppob/features/account/presentation/provider/update_profile_provider.dart';
 import 'package:simsppob/features/login/presentation/provider/last_login_provider.dart';
 import 'package:simsppob/utils/helper/email_validator.dart';
+import 'package:simsppob/utils/helper/show_app_toast.dart';
 
 class AccountFormView extends StatelessWidget {
   const AccountFormView({
@@ -31,6 +32,7 @@ class AccountFormView extends StatelessWidget {
   void onEdit(BuildContext context,
       {required UpdateProfileProvider updateProfileProvider}) {
     if (formKey.currentState?.validate() == true) {
+      FocusScope.of(context).unfocus();
       updateProfileProvider
           .updateProfile(ProfileModel(
               email: emailController.text,
@@ -125,6 +127,10 @@ class AccountFormView extends StatelessWidget {
           ),
           Consumer<UpdateProfileProvider>(
               builder: (context, updateProfileProvider, _) {
+            if (updateProfileProvider.dataState.isError) {
+              showAppToast(context,
+                  message: updateProfileProvider.dataState.error!);
+            }
             return AppButton(
                 text: isEdit ? 'Simpan' : 'Edit Profil',
                 isLoading: updateProfileProvider.dataState.isLoading,

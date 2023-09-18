@@ -19,7 +19,7 @@ class AppShimmer extends StatelessWidget {
         highlightColor: Colors.grey.shade100,
         child: Container(
           height: height ?? 40,
-          width: 150,
+          width: width ?? double.infinity,
           decoration: BoxDecoration(
               color: Colors.white, borderRadius: BorderRadius.circular(5.r)),
         ));

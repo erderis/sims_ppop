@@ -29,8 +29,6 @@ class TopUpRemoteImpl implements TopUpRemote {
       },
       body: requestBodyJson,
     );
-    print(response.statusCode);
-    print(response.body);
     final statusCode = response.statusCode;
     if (statusCode == 200) {
       return BalanceResponseModel.fromJson(json.decode(response.body));

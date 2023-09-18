@@ -52,9 +52,10 @@ class AppSaldoItemView extends StatelessWidget {
                 final state = provider.dataState;
                 return Consumer<SaldoVisibilityProvider>(
                     builder: (context, saldoProvider, _) {
-                  print(state.isLoading);
                   if (state.isLoading) {
-                    return const AppShimmer();
+                    return const AppShimmer(
+                      width: 250,
+                    );
                   }
                   return Text(
                     state.isSuccess

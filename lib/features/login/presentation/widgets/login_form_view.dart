@@ -4,10 +4,12 @@ import 'package:simsppob/config/app_routes.dart';
 import 'package:simsppob/constants/app_padding.dart';
 import 'package:simsppob/core/widgets/app_button.dart';
 import 'package:simsppob/core/widgets/app_text_field.dart';
+import 'package:simsppob/features/home/presentation/provider/balance_provider.dart';
 import 'package:simsppob/features/login/data/models/login_model.dart';
 import 'package:simsppob/features/login/presentation/provider/login_password_visibility_provider.dart';
 import 'package:simsppob/features/login/presentation/provider/login_provider.dart';
 import 'package:simsppob/utils/helper/email_validator.dart';
+import 'package:simsppob/utils/helper/reload_all_state.dart';
 import 'package:simsppob/utils/helper/show_app_toast.dart';
 
 class LoginFormView extends StatefulWidget {
@@ -24,11 +26,17 @@ class _LoginFormViewState extends State<LoginFormView> {
 
   void onLogin(BuildContext context, LoginProvider provider) {
     if (formKey.currentState?.validate() == true) {
+      FocusScope.of(context).unfocus();
       provider
           .login(LoginModel(
               email: _emailController.text, password: _passwordController.text))
           .then((value) {
         if (provider.dataState.isSuccess) {
+          final balanceProvider =
+              Provider.of<BalanceProvider>(context, listen: false);
+          if (balanceProvider.dataState.isSuccess) {
+            reloadAllState(context);
+          }
           Navigator.pushNamedAndRemoveUntil(
               context, Routes.main, (routes) => false);
         }
@@ -48,7 +56,6 @@ class _LoginFormViewState extends State<LoginFormView> {
 
   @override
   Widget build(BuildContext context) {
-    print('reloaded');
     return Form(
       key: formKey,
       child: Padding(

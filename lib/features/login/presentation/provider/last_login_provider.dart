@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:simsppob/core/data_state/data_state.dart';
 import 'package:simsppob/core/usecases/usecase.dart';
-import 'package:simsppob/features/login/data/models/login_model.dart';
 import 'package:simsppob/features/login/domain/usecases/delete_last_login_usecase.dart';
 import 'package:simsppob/features/login/domain/usecases/get_last_login_usacase.dart';
 import 'package:simsppob/utils/helper/map_failure_to_message.dart';

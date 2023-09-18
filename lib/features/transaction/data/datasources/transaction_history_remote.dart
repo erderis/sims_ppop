@@ -21,8 +21,6 @@ class TransactionHistoryRemoteImpl implements TransactionHistoryRemote {
         Uri.parse(
             '${AppApi.transactionHistory}?offset=${params.offset}&limit=${params.limit}'),
         headers: header);
-    print(response.statusCode);
-    print(response.body);
     final statusCode = response.statusCode;
     if (statusCode == 200) {
       return TransactionHistoryResponseModel.fromJson(

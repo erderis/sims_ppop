@@ -15,8 +15,6 @@ class BannerRemoteImpl implements BannerRemote {
   Future<BannerResponseModel> getBanner(String token) async {
     Map<String, String> header = {'Authorization': 'Bearer $token'};
     final response = await http.get(Uri.parse(AppApi.banner), headers: header);
-    print(response.statusCode);
-    print(response.body);
     final statusCode = response.statusCode;
     if (statusCode == 200) {
       return BannerResponseModel.fromJson(json.decode(response.body));

@@ -16,8 +16,6 @@ class ServicesRemoteImpl implements ServicesRemote {
     Map<String, String> header = {'Authorization': 'Bearer $token'};
     final response =
         await http.get(Uri.parse(AppApi.services), headers: header);
-    print(response.statusCode);
-    print(response.body);
     final statusCode = response.statusCode;
     if (statusCode == 200) {
       return ServicesResponseModel.fromJson(json.decode(response.body));
