@@ -9,7 +9,7 @@ import 'package:simsppob/features/home/domain/entities/balance_entity.dart';
 import 'package:simsppob/features/home/domain/entities/banner_entity.dart';
 import 'package:simsppob/features/home/domain/entities/services_entity.dart';
 import 'package:simsppob/features/home/domain/repositories/home_repo.dart';
-import 'package:simsppob/features/login/data/datasources/login_local.dart';
+import 'package:simsppob/features/onboarding/login/data/datasources/login_local.dart';
 
 class HomeRepoImpl implements HomeRepo {
   final NetworkInfo networkInfo;

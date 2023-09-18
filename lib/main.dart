@@ -14,7 +14,7 @@ import 'package:simsppob/features/home/presentation/provider/balance_provider.da
 import 'package:simsppob/features/home/presentation/provider/banner_provider.dart';
 import 'package:simsppob/features/home/presentation/provider/saldo_visibility_provider.dart';
 import 'package:simsppob/features/home/presentation/provider/services_provider.dart';
-import 'package:simsppob/features/login/presentation/provider/last_login_provider.dart';
+import 'package:simsppob/features/onboarding/login/presentation/provider/last_login_provider.dart';
 import 'package:simsppob/features/main/presentation/provider/navbar_provider.dart';
 import 'package:simsppob/features/payment/presentation/provider/payment_provider.dart';
 import 'package:simsppob/features/topup/presentation/provider/topup_field_state_provider.dart';

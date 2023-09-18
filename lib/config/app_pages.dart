@@ -1,8 +1,8 @@
-import 'package:simsppob/features/login/presentation/pages/login_view.dart';
+import 'package:simsppob/features/onboarding/login/presentation/pages/login_view.dart';
 import 'package:simsppob/features/main/presentation/pages/main_view.dart';
 import 'package:simsppob/features/payment/presentation/pages/payment_view.dart';
-import 'package:simsppob/features/register/presentation/pages/register_view.dart';
-import 'package:simsppob/features/splash/presentation/pages/splash_view.dart';
+import 'package:simsppob/features/onboarding/register/presentation/pages/register_view.dart';
+import 'package:simsppob/features/onboarding/splash/presentation/pages/splash_view.dart';
 
 import './app_routes.dart';
 import 'package:flutter/material.dart';

@@ -16,53 +16,33 @@ import 'package:simsppob/features/account/presentation/provider/profile_provider
 import 'package:simsppob/features/account/presentation/provider/update_profile_image_provider.dart';
 import 'package:simsppob/features/account/presentation/widgets/account_form_view.dart';
 import 'package:simsppob/features/account/presentation/widgets/account_loading_view.dart';
-import 'package:simsppob/features/login/presentation/provider/last_login_provider.dart';
-import 'package:simsppob/features/main/presentation/provider/navbar_provider.dart';
+import 'package:simsppob/features/onboarding/login/presentation/provider/last_login_provider.dart';
+import 'package:simsppob/utils/helper/on_back_navbar.dart';
 import 'package:simsppob/utils/helper/show_app_toast.dart';
 import 'package:simsppob/utils/injection/injection_container.dart';
 
-class AccountView extends StatefulWidget {
+class AccountView extends StatelessWidget {
   const AccountView({super.key});
 
-  @override
-  State<AccountView> createState() => _AccountViewState();
-}
-
-class _AccountViewState extends State<AccountView> {
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController firstNameController = TextEditingController();
-  final TextEditingController lastNameController = TextEditingController();
-  final RefreshController refreshController = RefreshController();
-
   void _onRefresh(BuildContext context,
-      {required ProfileProvider provider}) async {
+      {required RefreshController refreshController,
+      required ProfileProvider provider}) async {
     provider.getProfile(isWithLoading: false);
     await Future.delayed(const Duration(seconds: 2));
     refreshController.refreshCompleted();
   }
 
   @override
-  void dispose() {
-    emailController.dispose();
-    firstNameController.dispose();
-    lastNameController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final refreshController = RefreshController();
+
     return ChangeNotifierProvider(
       create: (_) => sl<ProfileEditStateProvider>(),
       child: Scaffold(
         appBar: PreferredSize(
             preferredSize: appBarSize,
             child: AppHeader(
-              onBack: () {
-                final navbarProvider =
-                    Provider.of<NavbarProvider>(context, listen: false);
-                navbarProvider.changeNavbar(0);
-              },
+              onBack: () => onBackNavbar(context),
               title: 'Akun',
             )),
         body: SafeArea(
@@ -71,12 +51,11 @@ class _AccountViewState extends State<AccountView> {
               return const AccountLoadingView();
             } else if (provider.dataState.isSuccess) {
               final data = provider.dataState.data!;
-              emailController.text = data.email;
-              firstNameController.text = data.firstName;
-              lastNameController.text = data.lastName;
+
               return AppSmartRefresher(
                 controller: refreshController,
-                onRefresh: () => _onRefresh(context, provider: provider),
+                onRefresh: () => _onRefresh(context,
+                    provider: provider, refreshController: refreshController),
                 child: ListView(
                   padding: EdgeInsets.symmetric(
                       horizontal: AppPadding.horizontalPaddingXL,
@@ -157,10 +136,7 @@ class _AccountViewState extends State<AccountView> {
                         builder: (context, providerEdit, _) {
                       return AccountFormView(
                         isEdit: providerEdit.isEdit,
-                        emailController: emailController,
-                        firstNameController: firstNameController,
-                        lastNameController: lastNameController,
-                        formKey: formKey,
+                        data: data,
                       );
                     }),
                   ],

@@ -1,6 +1,7 @@
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:simsppob/constants/amount_default.dart';
 import 'package:simsppob/constants/app_colors.dart';
 import 'package:simsppob/constants/app_padding.dart';
 import 'package:simsppob/constants/app_text_style.dart';
@@ -16,15 +17,6 @@ class TopUpFormView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final amountTemplates = [
-      '10.000',
-      '20.000',
-      '50.000',
-      '10.0000',
-      '250.000',
-      '500.000'
-    ];
-
     return Form(
       key: formKey,
       child: Column(
@@ -76,16 +68,16 @@ class TopUpFormView extends StatelessWidget {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: List.generate(amountTemplates.length - 3,
-                (index) => _buildNominalItem(amountTemplates[index])),
+            children: List.generate(amountDefaults.length - 3,
+                (index) => _buildNominalItem(amountDefaults[index])),
           ),
           SizedBox(
             height: AppPadding.verticalPaddingL,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: List.generate(amountTemplates.length - 3,
-                (index) => _buildNominalItem(amountTemplates[index + 3])),
+            children: List.generate(amountDefaults.length - 3,
+                (index) => _buildNominalItem(amountDefaults[index + 3])),
           ),
         ],
       ),

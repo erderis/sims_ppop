@@ -1,10 +1,10 @@
-import 'package:simsppob/features/register/data/datasources/register_remote.dart';
-import 'package:simsppob/features/register/data/repositories/register_repo_impl.dart';
-import 'package:simsppob/features/register/domain/repositories/register_repo.dart';
-import 'package:simsppob/features/register/domain/usecases/register_usecase.dart';
-import 'package:simsppob/features/register/presentation/provider/register_password_confirm_visibility_provider.dart';
-import 'package:simsppob/features/register/presentation/provider/register_password_visibility_provider.dart';
-import 'package:simsppob/features/register/presentation/provider/register_provider.dart';
+import 'package:simsppob/features/onboarding/register/data/datasources/register_remote.dart';
+import 'package:simsppob/features/onboarding/register/data/repositories/register_repo_impl.dart';
+import 'package:simsppob/features/onboarding/register/domain/repositories/register_repo.dart';
+import 'package:simsppob/features/onboarding/register/domain/usecases/register_usecase.dart';
+import 'package:simsppob/features/onboarding/register/presentation/provider/register_password_confirm_visibility_provider.dart';
+import 'package:simsppob/features/onboarding/register/presentation/provider/register_password_visibility_provider.dart';
+import 'package:simsppob/features/onboarding/register/presentation/provider/register_provider.dart';
 import 'package:simsppob/utils/injection/injection_container.dart';
 
 Future<void> initInjectionRegister() async {

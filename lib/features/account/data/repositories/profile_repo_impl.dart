@@ -6,7 +6,7 @@ import 'package:simsppob/features/account/data/datasources/profile_remote.dart';
 import 'package:simsppob/features/account/data/models/profile_model.dart';
 import 'package:simsppob/features/account/domain/entities/profile_entity.dart';
 import 'package:simsppob/features/account/domain/repositories/profile_repo.dart';
-import 'package:simsppob/features/login/data/datasources/login_local.dart';
+import 'package:simsppob/features/onboarding/login/data/datasources/login_local.dart';
 
 class ProfileRepoImpl implements ProfileRepo {
   final NetworkInfo networkInfo;

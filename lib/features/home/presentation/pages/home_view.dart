@@ -18,19 +18,16 @@ class HomeView extends StatelessWidget {
 
   void _onRefresh(BuildContext context,
       {required RefreshController refreshController}) async {
-    Provider.of<BalanceProvider>(context, listen: false)
-        .getBalance(isWithLoading: false);
-    Provider.of<ServicesProvider>(context, listen: false)
-        .getServices(isWithLoading: false);
-    Provider.of<BannerProvider>(context, listen: false)
-        .getBanner(isWithLoading: false);
+    context.read<BalanceProvider>().getBalance(isWithLoading: false);
+    context.read<ServicesProvider>().getServices(isWithLoading: false);
+    context.read<BannerProvider>().getBanner(isWithLoading: false);
     await Future.delayed(const Duration(seconds: 2));
     refreshController.refreshCompleted();
   }
 
   @override
   Widget build(BuildContext context) {
-    final refreshController = RefreshController(initialRefresh: false);
+    final refreshController = RefreshController();
     return Scaffold(
       appBar: const PreferredSize(
         preferredSize: appBarSize,

@@ -8,11 +8,11 @@ import 'package:simsppob/core/widgets/app_dialog_confirm.dart';
 import 'package:simsppob/core/widgets/app_dialog_notif.dart';
 import 'package:simsppob/core/widgets/app_header.dart';
 import 'package:simsppob/core/widgets/app_saldo_item.dart';
-import 'package:simsppob/features/main/presentation/provider/navbar_provider.dart';
 import 'package:simsppob/features/topup/presentation/provider/topup_field_state_provider.dart';
 import 'package:simsppob/features/topup/presentation/provider/topup_provider.dart';
 import 'package:simsppob/features/topup/presentation/widgets/topup_form_view.dart';
 import 'package:simsppob/utils/helper/format_currency.dart';
+import 'package:simsppob/utils/helper/on_back_navbar.dart';
 import 'package:simsppob/utils/helper/show_app_dialog_loading.dart';
 import 'package:simsppob/utils/helper/show_app_toast.dart';
 import 'package:simsppob/utils/helper/update_balance_transaction.dart';
@@ -85,15 +85,10 @@ class _TopUpViewState extends State<TopUpView> {
         value: 'Rp10.000',
         onConfirm: () {
           Navigator.pop(context);
-          onBack();
+          onBackNavbar(context);
         },
       ),
     );
-  }
-
-  void onBack() {
-    final navbarProvider = Provider.of<NavbarProvider>(context, listen: false);
-    navbarProvider.changeNavbar(0);
   }
 
   @override
@@ -108,7 +103,7 @@ class _TopUpViewState extends State<TopUpView> {
       appBar: PreferredSize(
           preferredSize: appBarSize,
           child: AppHeader(
-            onBack: onBack,
+            onBack: () => onBackNavbar(context),
             title: 'Top Up',
           )),
       body: InkWell(
