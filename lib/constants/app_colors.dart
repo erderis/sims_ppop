@@ -36,4 +36,5 @@ class AppColors {
 
   //toast color
   static const Color toastColor = Color(0xffFFF5F3);
+  static const Color toastColorSuccess = Color(0xffC4EFDF);
 }

@@ -50,32 +50,33 @@ class HomeHeaderView extends StatelessWidget {
                 builder: (context, provider, _) {
                   final profileState = provider.dataState;
 
-                  Widget buildProfileImage() {
-                    if (profileState.isLoading) {
-                      return const SizedBox();
-                    } else if (profileState.isSuccess) {
+                  ImageProvider buildProfileImage() {
+                    if (profileState.isSuccess) {
                       final profileImage = profileState.data?.profileImage;
 
                       if (profileImage != null &&
                           profileImage.isNotEmpty &&
                           !profileImage.contains('null')) {
-                        return Image.network(profileImage, fit: BoxFit.cover);
+                        return NetworkImage(profileImage);
                       }
                     }
 
-                    return Image.asset(AppAssets.profilePicture,
-                        fit: BoxFit.cover);
+                    return const AssetImage(
+                      AppAssets.profilePicture,
+                    );
                   }
 
                   return Container(
                     width: 30.w,
                     height: 30.w,
                     decoration: BoxDecoration(
-                      color: AppColors.backgroundColor,
-                      border: Border.all(color: AppColors.borderColor),
-                      shape: BoxShape.circle,
-                    ),
-                    child: buildProfileImage(),
+                        color: AppColors.backgroundColor,
+                        border: Border.all(color: AppColors.borderColor),
+                        shape: BoxShape.circle,
+                        image: profileState.isLoading
+                            ? null
+                            : DecorationImage(
+                                fit: BoxFit.cover, image: buildProfileImage())),
                   );
                 },
               ),

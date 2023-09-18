@@ -27,7 +27,7 @@ class TransactionProvider extends ChangeNotifier {
     notifyListeners();
 
     final failureOrTransactionHistory = await getTransactionHistoryUseCase(
-        TransactionHistoryParam(offset: _offset, limit: _limit));
+        TransactionHistoryParam(offset: 0, limit: _limit));
     failureOrTransactionHistory.fold(
         (failure) => _dataState =
             DataState(isError: true, error: mapFailureToMessage(failure)),

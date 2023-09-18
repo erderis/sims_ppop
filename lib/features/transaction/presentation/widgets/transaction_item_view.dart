@@ -27,7 +27,7 @@ class TransactionItemView extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppSmartRefresher(
       controller: refreshController,
-      onRefresh: () => onRefresh,
+      onRefresh: onRefresh,
       child: ListView(
         padding:
             EdgeInsets.symmetric(horizontal: AppPadding.horizontalPaddingXL),

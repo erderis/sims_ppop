@@ -9,10 +9,8 @@ import 'package:simsppob/features/account/data/models/profile_model.dart';
 import 'package:simsppob/features/account/domain/entities/profile_entity.dart';
 import 'package:simsppob/features/account/presentation/provider/profile_edit_state_provider.dart';
 import 'package:simsppob/features/account/presentation/provider/profile_provider.dart';
-import 'package:simsppob/features/account/presentation/provider/update_profile_provider.dart';
 import 'package:simsppob/features/onboarding/login/presentation/provider/last_login_provider.dart';
 import 'package:simsppob/utils/helper/email_validator.dart';
-import 'package:simsppob/utils/helper/show_app_toast.dart';
 
 class AccountFormView extends StatefulWidget {
   const AccountFormView({super.key, required this.isEdit, required this.data});
@@ -39,16 +37,18 @@ class _AccountFormViewState extends State<AccountFormView> {
   }
 
   void onEdit(BuildContext context,
-      {required UpdateProfileProvider updateProfileProvider}) {
+      {required ProfileProvider profileProvider}) {
     if (formKey.currentState?.validate() == true) {
       FocusScope.of(context).unfocus();
-      updateProfileProvider
-          .updateProfile(ProfileModel(
-              email: emailController.text,
-              firstName: firstNameController.text,
-              lastName: lastNameController.text))
+      profileProvider
+          .updateProfile(
+        profileModel: ProfileModel(
+            email: emailController.text,
+            firstName: firstNameController.text,
+            lastName: lastNameController.text),
+        currentData: profileProvider.dataState.data,
+      )
           .then((value) {
-        context.read<ProfileProvider>().getProfile(isWithLoading: false);
         context.read<ProfileEditStateProvider>().setIsEdit(false);
       });
     }
@@ -139,21 +139,15 @@ class _AccountFormViewState extends State<AccountFormView> {
           SizedBox(
             height: AppPadding.verticalPaddingM * 2,
           ),
-          Consumer<UpdateProfileProvider>(
-              builder: (context, updateProfileProvider, _) {
-            if (updateProfileProvider.dataState.isError) {
-              showAppToast(context,
-                  message: updateProfileProvider.dataState.error!);
-            }
+          Consumer<ProfileProvider>(builder: (context, profileProvider, _) {
             return AppButton(
                 text: widget.isEdit ? 'Simpan' : 'Edit Profil',
-                isLoading: updateProfileProvider.dataState.isLoading,
-                onPressed: updateProfileProvider.dataState.isLoading
+                isLoading: profileProvider.dataState.isLoadingUpdate,
+                onPressed: profileProvider.dataState.isLoadingUpdate
                     ? () {}
                     : () {
                         if (widget.isEdit) {
-                          onEdit(context,
-                              updateProfileProvider: updateProfileProvider);
+                          onEdit(context, profileProvider: profileProvider);
                         } else {
                           context
                               .read<ProfileEditStateProvider>()

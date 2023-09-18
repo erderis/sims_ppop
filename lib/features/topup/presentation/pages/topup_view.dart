@@ -82,7 +82,7 @@ class _TopUpViewState extends State<TopUpView> {
       builder: (context) => AppDialogNotif(
         isSuccess: isSuccess,
         title: 'Top Up sebesar',
-        value: 'Rp10.000',
+        value: 'Rp ${amountController.text}',
         onConfirm: () {
           Navigator.pop(context);
           onBackNavbar(context);

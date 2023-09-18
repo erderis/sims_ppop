@@ -8,8 +8,6 @@ import 'package:simsppob/config/app_pages.dart';
 import 'package:simsppob/config/app_routes.dart';
 import 'package:simsppob/constants/app_colors.dart';
 import 'package:simsppob/features/account/presentation/provider/profile_provider.dart';
-import 'package:simsppob/features/account/presentation/provider/update_profile_image_provider.dart';
-import 'package:simsppob/features/account/presentation/provider/update_profile_provider.dart';
 import 'package:simsppob/features/home/presentation/provider/balance_provider.dart';
 import 'package:simsppob/features/home/presentation/provider/banner_provider.dart';
 import 'package:simsppob/features/home/presentation/provider/saldo_visibility_provider.dart';
@@ -78,12 +76,6 @@ class SIMSPPOB extends StatelessWidget {
           create: (_) => sl<ProfileProvider>()..getProfile(),
         ),
         ChangeNotifierProvider(
-          create: (_) => sl<UpdateProfileProvider>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => sl<UpdateProfileImageProvider>(),
-        ),
-        ChangeNotifierProvider(
           create: (_) => sl<LastLoginProvider>()..appStarted(),
         ),
       ],
@@ -93,6 +85,9 @@ class SIMSPPOB extends StatelessWidget {
         theme: ThemeData(
             fontFamily: 'Inter',
             primaryColor: AppColors.accentColor,
+            progressIndicatorTheme: const ProgressIndicatorThemeData(
+              color: AppColors.accentColor,
+            ),
             visualDensity: VisualDensity.adaptivePlatformDensity,
             scaffoldBackgroundColor: AppColors.backgroundColor),
         initialRoute: Routes.splash,
