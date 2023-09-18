@@ -33,6 +33,9 @@ class RegisterView extends StatelessWidget {
         body: SafeArea(
           child: ListView(
             children: [
+              SizedBox(
+                height: AppPadding.verticalPaddingL,
+              ),
               const AuthHeaderView(),
               SizedBox(
                 height: AppPadding.verticalPaddingM * 2,

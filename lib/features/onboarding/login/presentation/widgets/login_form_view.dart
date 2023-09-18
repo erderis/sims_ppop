@@ -90,8 +90,6 @@ class _LoginFormViewState extends State<LoginFormView> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'password tidak boleh kosong';
-                    } else if (value.length < 8) {
-                      return 'password tidak boleh kurang dari 8 karakter';
                     }
                     return null;
                   },

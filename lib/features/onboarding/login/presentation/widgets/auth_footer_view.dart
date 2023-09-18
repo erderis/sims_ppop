@@ -20,19 +20,21 @@ class AuthFooterView extends StatelessWidget {
       return Visibility(
         visible: !isKeyboardVisible,
         child: RichText(
+            textAlign: TextAlign.center,
             text: TextSpan(
                 style: AppTextStyles.descriptionTextStyle
                     .copyWith(color: AppColors.textColorSecondary),
                 children: [
-              TextSpan(text: title),
-              TextSpan(
-                text: 'di sini',
-                style: AppTextStyles.descriptionTextStyle.copyWith(
-                    color: AppColors.accentColor, fontWeight: FontWeight.w600),
-                recognizer: TapGestureRecognizer()
-                  ..onTap = () => Navigator.pushNamed(context, route),
-              ),
-            ])),
+                  TextSpan(text: title),
+                  TextSpan(
+                    text: 'di sini',
+                    style: AppTextStyles.descriptionTextStyle.copyWith(
+                        color: AppColors.accentColor,
+                        fontWeight: FontWeight.w600),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () => Navigator.pushNamed(context, route),
+                  ),
+                ])),
       );
     });
   }

@@ -70,7 +70,8 @@ class AppTextField extends StatelessWidget {
         onFieldSubmitted: onFieldSubmitted,
         textCapitalization: textCapitalization,
         keyboardType: textInputType,
-        style: AppTextStyles.descriptionTextStyle,
+        style: AppTextStyles.descriptionTextStyle
+            .copyWith(fontWeight: FontWeight.w500),
         obscureText: isPassword ? !isPasswordVisible : false,
         maxLines: maxLines,
         textInputAction: textInputAction,

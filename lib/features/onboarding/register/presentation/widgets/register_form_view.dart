@@ -166,7 +166,7 @@ class _LoginFormViewState extends State<RegisterFormView> {
                   textInputAction: TextInputAction.done,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'password tidak boleh kosong';
+                      return 'konfirmasi password tidak boleh kosong';
                     } else if (_passwordController.text != value) {
                       return 'password tidak sama';
                     }
