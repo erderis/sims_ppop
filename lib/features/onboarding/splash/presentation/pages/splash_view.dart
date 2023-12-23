@@ -39,7 +39,7 @@ class SplashView extends StatelessWidget {
               ),
               SizedBox(height: AppPadding.verticalPaddingL),
               Text(
-                'Dede Risman',
+                'Khairul Rizal',
                 style: AppTextStyles.descriptionTextStyle
                     .copyWith(color: AppColors.hintTextColor),
               ),
